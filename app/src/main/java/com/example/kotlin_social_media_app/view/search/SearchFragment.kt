@@ -1,33 +1,34 @@
 package com.example.kotlin_social_media_app.view.search
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.kotlin_social_media_app.R
+import com.example.kotlin_social_media_app.adapter.SearchUserAdapter
+import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SearchFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    lateinit var searchUserAdapter: SearchUserAdapter
+
+    lateinit var recyclerView : RecyclerView
+    lateinit var inputBookName : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -35,26 +36,63 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+         val view = inflater.inflate(R.layout.fragment_search, container, false)
+
+        //
+        recyclerView = view.findViewById(R.id.recyclerView)
+        inputBookName = view.findViewById(R.id.inputBookName)
+
+        //
+        initSearchBook()
+        initRecyclerView(view)
+
+        return view;
+    }
+
+    fun initRecyclerView(view: View) {
+        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(activity)
+            val decoration  = DividerItemDecoration(activity, StaggeredGridLayoutManager.VERTICAL)
+            addItemDecoration(decoration)
+
+            //
+            searchUserAdapter = SearchUserAdapter()
+            adapter = searchUserAdapter
+        }
+    }
+
+    fun initSearchBook() {
+        inputBookName.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+                loadApiData(s.toString())
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        })
+    }
+
+    fun loadApiData(input: String) {
+        val viewModel = ViewModelProvider(this).get(SearchActivityViewModel::class.java)
+        viewModel.getUserByNameObservable().observe(this, Observer {
+            if (it != null) {
+                recyclerView.visibility = View.VISIBLE
+                searchUserAdapter.setBookList(it.data)
+                searchUserAdapter.notifyDataSetChanged()
+            } else {
+                recyclerView.visibility = View.GONE
+            }
+        })
+        viewModel.searchUserListOfData(input)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SearchFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = SearchFragment()
     }
 }

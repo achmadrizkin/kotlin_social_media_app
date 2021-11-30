@@ -15,9 +15,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".view.bottomNav.BottomNavActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.search.SearchActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"

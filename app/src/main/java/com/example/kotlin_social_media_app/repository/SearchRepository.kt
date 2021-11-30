@@ -9,7 +9,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class RetrofitRepository @Inject constructor(private val retrofitService: RetrofitService) {
+class SearchRepository @Inject constructor(private val retrofitService: RetrofitService)  {
     fun getBookFromApiCall(name_user: String, bookList: MutableLiveData<UserList>) {
         retrofitService.searchUser(name_user)
             .subscribeOn(Schedulers.io())

@@ -14,9 +14,12 @@
         android:theme="@style/Theme.Kotlin_social_media_app"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".view.bottomNav.BottomNavActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:name=".view.auth.SignInActivity"
             android:exported="false" />
+        <activity
+            android:name=".view.bottomNav.BottomNavActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.MainActivity"
             android:exported="true">

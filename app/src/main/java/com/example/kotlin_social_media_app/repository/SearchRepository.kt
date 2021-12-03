@@ -7,14 +7,15 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SearchRepository @Inject constructor(private val retrofitService: RetrofitService)  {
-    fun getBookFromApiCall(name_user: String, bookList: MutableLiveData<UserList>) {
+    fun getBookFromApiCall(name_user: String, userList: MutableLiveData<UserList>) {
         retrofitService.searchUser(name_user)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(getBookListObserverRx(bookList))
+            .subscribe(getBookListObserverRx(userList))
     }
 
     private fun getBookListObserverRx(userList: MutableLiveData<UserList>): Observer<UserList> {

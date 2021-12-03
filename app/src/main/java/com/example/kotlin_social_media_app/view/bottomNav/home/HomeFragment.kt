@@ -1,13 +1,16 @@
-package com.example.kotlin_social_media_app.view.reels
+package com.example.kotlin_social_media_app.view.bottomNav.home
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.kotlin_social_media_app.R
 
-class ReelsFragment : Fragment() {
+class HomeFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +21,11 @@ class ReelsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reels, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = ReelsFragment()
+        fun newInstance() = HomeFragment()
     }
 }

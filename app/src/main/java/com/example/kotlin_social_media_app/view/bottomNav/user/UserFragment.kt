@@ -1,4 +1,4 @@
-package com.example.kotlin_social_media_app.view.user
+package com.example.kotlin_social_media_app.view.bottomNav.user
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

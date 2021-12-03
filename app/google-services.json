@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "908661767228",
+    "project_id": "kotlin-auth-scd",
+    "storage_bucket": "kotlin-auth-scd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908661767228:android:24373da24ab4c493f6d739",
+        "android_client_info": {
+          "package_name": "com.example.kotlin_social_media_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908661767228-crsi7ekg855q2u7h6kq481r9k1842lkr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kotlin_social_media_app",
+            "certificate_hash": "0af0ef67864b6fe8cb9efb16ce81374b9fd6bdc6"
+          }
+        },
+        {
+          "client_id": "908661767228-63045vq77io4rkd6jdafj5fm3u44l4f6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWs2Xmn0fpxsSD2axiAcH9jt23VeKDsAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908661767228-63045vq77io4rkd6jdafj5fm3u44l4f6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

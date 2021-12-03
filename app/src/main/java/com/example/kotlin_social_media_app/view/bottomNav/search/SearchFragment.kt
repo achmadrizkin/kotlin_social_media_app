@@ -1,14 +1,13 @@
-package com.example.kotlin_social_media_app.view.search
+package com.example.kotlin_social_media_app.view.bottomNav.search
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -36,24 +35,27 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-         val view = inflater.inflate(R.layout.fragment_search, container, false)
+        val view = inflater.inflate(R.layout.fragment_search, container, false)
 
         //
-        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = view.findViewById(R.id.searchView)
         inputBookName = view.findViewById(R.id.inputBookName)
+
+        loadApiData(inputBookName.text.toString())
+
 
         //
         initSearchBook()
         initRecyclerView(view)
 
-        return view;
+        return view
     }
 
-    fun initRecyclerView(view: View) {
-        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+    private fun initRecyclerView(view: View) {
+        recyclerView = view.findViewById<RecyclerView>(R.id.searchView)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(activity)
-            val decoration  = DividerItemDecoration(activity, StaggeredGridLayoutManager.VERTICAL)
+            val decoration = DividerItemDecoration(activity, StaggeredGridLayoutManager.VERTICAL)
             addItemDecoration(decoration)
 
             //
@@ -62,8 +64,8 @@ class SearchFragment : Fragment() {
         }
     }
 
-    fun initSearchBook() {
-        inputBookName.addTextChangedListener(object: TextWatcher {
+    private fun initSearchBook() {
+        inputBookName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -79,12 +81,16 @@ class SearchFragment : Fragment() {
 
     fun loadApiData(input: String) {
         val viewModel = ViewModelProvider(this).get(SearchActivityViewModel::class.java)
-        viewModel.getUserByNameObservable().observe(this, Observer {
+        viewModel.getUserByNameObservable().observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 recyclerView.visibility = View.VISIBLE
                 searchUserAdapter.setBookList(it.data)
                 searchUserAdapter.notifyDataSetChanged()
             } else {
+                recyclerView.visibility = View.GONE
+            }
+
+            if (input.isEmpty() || input == "") {
                 recyclerView.visibility = View.GONE
             }
         })

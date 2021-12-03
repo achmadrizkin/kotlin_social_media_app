@@ -10,24 +10,28 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.*
 import com.example.kotlin_social_media_app.R
+import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.adapter.SearchUserAdapter
 import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
     lateinit var searchUserAdapter: SearchUserAdapter
+    lateinit var exploreAdapter: ExploreAdapter
 
-    lateinit var recyclerView : RecyclerView
+    var disposables: CompositeDisposable? = null
+
+    lateinit var recyclerViewSearch : RecyclerView
+    lateinit var recyclerViewLayout : RecyclerView
     lateinit var inputBookName : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        disposables = CompositeDisposable()
     }
 
     override fun onCreateView(
@@ -38,29 +42,41 @@ class SearchFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
 
         //
-        recyclerView = view.findViewById(R.id.searchView)
+        recyclerViewSearch = view.findViewById(R.id.searchView)
+        recyclerViewLayout = view.findViewById(R.id.rcyclerViewLayout)
         inputBookName = view.findViewById(R.id.inputBookName)
 
         loadApiData(inputBookName.text.toString())
 
 
         //
+        initExploreRecyclerView(view)
+        initSearchRecyclerView(view)
+
         initSearchBook()
-        initRecyclerView(view)
+        getExploreApiData("a")
+
 
         return view
     }
 
-    private fun initRecyclerView(view: View) {
-        recyclerView = view.findViewById<RecyclerView>(R.id.searchView)
-        recyclerView.apply {
+    private fun initSearchRecyclerView(view: View) {
+        recyclerViewSearch = view.findViewById<RecyclerView>(R.id.searchView)
+        recyclerViewSearch.apply {
             layoutManager = LinearLayoutManager(activity)
-            val decoration = DividerItemDecoration(activity, StaggeredGridLayoutManager.VERTICAL)
-            addItemDecoration(decoration)
 
             //
             searchUserAdapter = SearchUserAdapter()
             adapter = searchUserAdapter
+        }
+    }
+
+    private fun initExploreRecyclerView(view: View) {
+        recyclerViewLayout.apply {
+            layoutManager = GridLayoutManager(activity, 3)
+
+            exploreAdapter = ExploreAdapter()
+            adapter = exploreAdapter
         }
     }
 
@@ -79,22 +95,43 @@ class SearchFragment : Fragment() {
         })
     }
 
+    fun getExploreApiData(input: String) {
+        val viewModel = ViewModelProvider(this).get(SearchActivityViewModel::class.java)
+        viewModel.getExploreObservable().observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                exploreAdapter.setExploreList(it.data)
+                exploreAdapter.notifyDataSetChanged()
+            }
+        })
+        viewModel.getExploreListOfData(input)
+    }
+
     fun loadApiData(input: String) {
         val viewModel = ViewModelProvider(this).get(SearchActivityViewModel::class.java)
         viewModel.getUserByNameObservable().observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                recyclerView.visibility = View.VISIBLE
+                recyclerViewSearch.visibility = View.VISIBLE
+                recyclerViewLayout.visibility = View.GONE
+
+                //
                 searchUserAdapter.setBookList(it.data)
                 searchUserAdapter.notifyDataSetChanged()
             } else {
-                recyclerView.visibility = View.GONE
+                recyclerViewSearch.visibility = View.GONE
+                recyclerViewLayout.visibility = View.VISIBLE
             }
 
             if (input.isEmpty() || input == "") {
-                recyclerView.visibility = View.GONE
+                recyclerViewSearch.visibility = View.GONE
+                recyclerViewLayout.visibility = View.VISIBLE
             }
         })
         viewModel.searchUserListOfData(input)
+    }
+
+    override fun onDestroy() {
+        disposables!!.clear()
+        super.onDestroy()
     }
 
     companion object {

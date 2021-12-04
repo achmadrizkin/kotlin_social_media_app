@@ -22,12 +22,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/ivExit"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="300dp"
 
-                android:src="@drawable/ic_reorder"
+                android:src="@drawable/ic_exit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.761"

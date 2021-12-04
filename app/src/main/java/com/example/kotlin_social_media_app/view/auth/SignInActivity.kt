@@ -8,16 +8,26 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.kotlin_social_media_app.R
+import com.example.kotlin_social_media_app.model.UserAuth
 import com.example.kotlin_social_media_app.view.bottomNav.BottomNavActivity
+import com.example.kotlin_social_media_app.view_model.SignInActivityViewModel
+import com.example.kotlin_social_media_app.view_model.UserActivityViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignInActivity : AppCompatActivity() {
+
+    private lateinit var viewModelSignIn: SignInActivityViewModel
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -43,6 +53,7 @@ class SignInActivity : AppCompatActivity() {
         etPassword = findViewById(R.id.etPassword)
         buttonRegister = findViewById(R.id.buttonRegister)
 
+
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("908661767228-63045vq77io4rkd6jdafj5fm3u44l4f6.apps.googleusercontent.com")
@@ -51,6 +62,10 @@ class SignInActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         mAuth = FirebaseAuth.getInstance()
+
+        //
+        iniViewModel()
+        postUserOrUpdateObservable()
 
         //
         buttonSignIn.setOnClickListener {
@@ -65,6 +80,33 @@ class SignInActivity : AppCompatActivity() {
         buttonRegister.setOnClickListener {
             createUser()
         }
+    }
+
+    private fun iniViewModel() {
+        viewModelSignIn = ViewModelProvider(this).get(SignInActivityViewModel::class.java)
+    }
+
+    private fun postUserOrUpdate(email: String) {
+       viewModelSignIn.createUserOrUpdateOfData(email)
+    }
+
+    private fun postUserOrUpdateObservable() {
+        viewModelSignIn.createUserOrUpdateObservable().observe(this, Observer {
+            if (it == null) {
+                Toast.makeText(
+                    this,
+                    "Welcome Back !",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Register Success",
+                    Toast.LENGTH_LONG
+                ).show()
+                finish()
+            }
+        })
     }
 
     private fun loginUser() {
@@ -82,6 +124,9 @@ class SignInActivity : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(ContentValues.TAG, "signInWithEmail:success")
                         val user = mAuth.currentUser
+
+                        // add to database
+                        postUserOrUpdate(user?.email!!)
 
                         //
                         val intent = Intent(this, BottomNavActivity::class.java)
@@ -120,9 +165,11 @@ class SignInActivity : AppCompatActivity() {
         } else {
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Register Compleate", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "Register Complete", Toast.LENGTH_SHORT)
                         .show()
 
+                    // add to database
+                    postUserOrUpdate(email)
 
                     //
                     val intent = Intent(this, BottomNavActivity::class.java)

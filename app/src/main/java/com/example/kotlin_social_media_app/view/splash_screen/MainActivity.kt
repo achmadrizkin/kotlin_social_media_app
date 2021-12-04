@@ -1,4 +1,4 @@
-package com.example.kotlin_social_media_app.view
+package com.example.kotlin_social_media_app.view.splash_screen
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

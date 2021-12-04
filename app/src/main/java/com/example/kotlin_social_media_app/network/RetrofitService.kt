@@ -1,9 +1,11 @@
 package com.example.kotlin_social_media_app.network
 
 import com.example.kotlin_social_media_app.model.ExploreList
+import com.example.kotlin_social_media_app.model.UserAuth
 import com.example.kotlin_social_media_app.model.UserList
 import io.reactivex.Observable
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface RetrofitService {
@@ -15,4 +17,7 @@ interface RetrofitService {
 
     @GET("explore/user/{email}")
     fun getExploreByEmailAndOrderByCreateAt(@Path("email") email: String): Observable<ExploreList>
+
+    @POST("users/a/{email_user}")
+    fun postUserOrUpdate(@Path("email_user") email_user: String): Observable<UserAuth>
 }

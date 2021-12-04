@@ -6,4 +6,5 @@ data class User (
     val image_url: String,
     val following: Int,
     val followers: Int,
+    val post: Int,
 )

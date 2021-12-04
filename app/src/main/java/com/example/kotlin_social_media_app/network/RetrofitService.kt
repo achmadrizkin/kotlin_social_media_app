@@ -18,6 +18,9 @@ interface RetrofitService {
     @GET("explore/user/{email}")
     fun getExploreByEmailAndOrderByCreateAt(@Path("email") email: String): Observable<ExploreList>
 
+    @GET("users/email/{email}")
+    fun getUserByEmail(@Path("email") email: String): Observable<UserList>
+
     @POST("users/a/{email_user}")
     fun postUserOrUpdate(@Path("email_user") email_user: String): Observable<UserAuth>
 }

@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.view.auth.SignInActivity
@@ -25,6 +27,16 @@ class UserFragment : Fragment() {
     lateinit var recyclerViewUserLayout : RecyclerView
     lateinit var exploreAdapter: ExploreAdapter
     private lateinit var mAuth: FirebaseAuth
+
+    //
+    private lateinit var ivImageUrl: ImageView
+
+    private lateinit var tvUserNameHeader: TextView
+    private lateinit var tvUserName: TextView
+
+    private lateinit var tvPostCount: TextView
+    private lateinit var tvFollowersCount: TextView
+    private lateinit var tvFollowingCount: TextView
 
     var disposables: CompositeDisposable? = null
 
@@ -48,8 +60,16 @@ class UserFragment : Fragment() {
         mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
 
+        ivImageUrl = view.findViewById(R.id.ivImageUrl)
+        tvUserNameHeader = view.findViewById(R.id.tvUserNameHeader)
+        tvUserName = view.findViewById(R.id.tvUserName)
+        tvPostCount = view.findViewById(R.id.tvPostCount)
+        tvFollowersCount = view.findViewById(R.id.tvFollowersCount)
+        tvFollowingCount = view.findViewById(R.id.tvFollowingCount)
+
         initExploreRecyclerView(view)
-        getExploreByEmailApiData("achmadrizki22@gmail.com")
+        getUserByEmail(currentUser?.email!!)
+        getExploreByEmailApiData(currentUser?.email!!)
 
         ivExit.setOnClickListener {
             mAuth.signOut()
@@ -70,7 +90,33 @@ class UserFragment : Fragment() {
         }
     }
 
-    fun getExploreByEmailApiData(input: String) {
+    private fun getUserByEmail(email: String) {
+        val viewModel = ViewModelProvider(this).get(UserActivityViewModel::class.java)
+        viewModel.getUserByEmailObservable().observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                if (it.data[0].name_user.isEmpty() || it.data[0].name_user == "" || it.data[0].image_url.isEmpty() || it.data[0].image_url == "") {
+                    tvUserName.setText("Anonymous")
+                    tvUserNameHeader.setText("Anonymous")
+                } else {
+                    tvUserName.setText(it.data[0].name_user)
+                    tvUserNameHeader.setText(it.data[0].name_user)
+
+                    // image
+                    Glide.with(ivImageUrl).load(it.data[0].image_url).circleCrop().into(ivImageUrl)
+                }
+
+                //
+                tvPostCount.setText(it.data[0].post.toString())
+                tvFollowersCount.setText(it.data[0].followers.toString())
+                tvFollowingCount.setText(it.data[0].following.toString())
+            } else {
+                recyclerViewUserLayout.visibility = View.GONE
+            }
+        })
+        viewModel.getUserListByEmailOfData(email)
+    }
+
+    private fun getExploreByEmailApiData(input: String) {
         val viewModel = ViewModelProvider(this).get(UserActivityViewModel::class.java)
         viewModel.getExploreObservable().observe(viewLifecycleOwner, Observer {
             if (it != null) {

@@ -64,12 +64,11 @@
                 app:tint="@color/black" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvUserNameHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="achmadrizkin"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -88,32 +87,31 @@
             app:layout_constraintTop_toBottomOf="@+id/cl1">
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/tvUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Achmad Rizki"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.053"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                app:layout_constraintTop_toBottomOf="@+id/ivImageUrl"
                 app:layout_constraintVertical_bias="0.055" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/tvFollowingCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="225"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.882"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintHorizontal_bias="0.857"
+                app:layout_constraintStart_toEndOf="@+id/ivImageUrl"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -127,39 +125,39 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.915"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintStart_toEndOf="@+id/ivImageUrl"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvPostCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="0"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.175"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintStart_toEndOf="@+id/ivImageUrl"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tvFollowersCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="225"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.481"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintStart_toEndOf="@+id/ivImageUrl"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/ivImageUrl"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/ic_user"
@@ -181,7 +179,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.14"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintStart_toEndOf="@+id/ivImageUrl"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -195,7 +193,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.486"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintStart_toEndOf="@+id/ivImageUrl"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
@@ -209,7 +207,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -221,6 +219,31 @@
 
             app:layout_constraintTop_toBottomOf="@id/cl2"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/empty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.66" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Empty Post"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4"
+            app:layout_constraintVertical_bias="0.101" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

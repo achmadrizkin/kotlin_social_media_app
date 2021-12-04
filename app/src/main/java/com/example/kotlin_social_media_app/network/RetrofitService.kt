@@ -12,4 +12,7 @@ interface RetrofitService {
 
     @GET("explore/{user}")
     fun getExploreOrderByLike(@Path("user") user: String): Observable<ExploreList>
+
+    @GET("explore/user/{email}")
+    fun getExploreByEmailAndOrderByCreateAt(@Path("email") email: String): Observable<ExploreList>
 }

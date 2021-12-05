@@ -7,14 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ReelsAdapter
-import com.example.kotlin_social_media_app.model.ReelsModel
 import com.example.kotlin_social_media_app.view_model.ReelsActivityViewModel
-import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 

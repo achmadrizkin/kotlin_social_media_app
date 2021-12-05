@@ -9,9 +9,7 @@ import android.widget.TextView
 import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin_social_media_app.R
-import com.example.kotlin_social_media_app.model.Explore
-import com.example.kotlin_social_media_app.model.Reels
-import com.example.kotlin_social_media_app.model.ReelsModel
+import com.example.kotlin_social_media_app.model.reels.Reels
 
 class ReelsAdapter: RecyclerView.Adapter<ReelsAdapter.VideoViewHolder>() {
     private var arrVideoModel = ArrayList<Reels>()

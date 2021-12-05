@@ -1,9 +1,7 @@
 package com.example.kotlin_social_media_app.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.example.kotlin_social_media_app.model.ReelsList
-import com.example.kotlin_social_media_app.model.UserAuth
-import com.example.kotlin_social_media_app.model.UserList
+import com.example.kotlin_social_media_app.model.reels.ReelsList
 import com.example.kotlin_social_media_app.network.RetrofitService
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers

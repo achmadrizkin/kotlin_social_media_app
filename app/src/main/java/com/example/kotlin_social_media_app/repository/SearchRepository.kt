@@ -1,15 +1,13 @@
 package com.example.kotlin_social_media_app.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.example.kotlin_social_media_app.model.ExploreList
-import com.example.kotlin_social_media_app.model.UserList
+import com.example.kotlin_social_media_app.model.explore.ExploreList
+import com.example.kotlin_social_media_app.model.user.UserList
 import com.example.kotlin_social_media_app.network.RetrofitService
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.Flow
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SearchRepository @Inject constructor(private val retrofitService: RetrofitService)  {

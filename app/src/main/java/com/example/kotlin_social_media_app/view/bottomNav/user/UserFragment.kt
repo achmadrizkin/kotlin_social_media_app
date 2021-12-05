@@ -113,9 +113,6 @@ class UserFragment : Fragment() {
                 tvPostCount.setText(it.data[0].post.toString())
                 tvFollowersCount.setText(it.data[0].followers.toString())
                 tvFollowingCount.setText(it.data[0].following.toString())
-
-                ivEmpty.visibility = View.GONE
-                tvEmpty.visibility = View.GONE
             } else {
                 recyclerViewUserLayout.visibility = View.GONE
             }
@@ -131,6 +128,9 @@ class UserFragment : Fragment() {
                 exploreAdapter.notifyDataSetChanged()
             } else {
                 recyclerViewUserLayout.visibility = View.GONE
+
+                ivEmpty.visibility = View.VISIBLE
+                tvEmpty.visibility = View.VISIBLE
             }
         })
         viewModel.getExploreListOfData(input)

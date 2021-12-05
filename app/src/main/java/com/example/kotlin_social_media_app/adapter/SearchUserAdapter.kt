@@ -8,9 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
-import com.example.kotlin_social_media_app.model.User
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
+import com.example.kotlin_social_media_app.model.user.User
 
 class SearchUserAdapter(val clickListener: OnItemClickListener): RecyclerView.Adapter<SearchUserAdapter.MyViewHolder>() {
     private var userList = ArrayList<User>()

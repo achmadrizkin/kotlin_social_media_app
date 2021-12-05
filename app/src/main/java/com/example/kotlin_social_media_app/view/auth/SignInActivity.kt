@@ -11,16 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlin_social_media_app.R
-import com.example.kotlin_social_media_app.model.UserAuth
 import com.example.kotlin_social_media_app.view.bottomNav.BottomNavActivity
 import com.example.kotlin_social_media_app.view_model.SignInActivityViewModel
-import com.example.kotlin_social_media_app.view_model.UserActivityViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.*
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.adapter.SearchUserAdapter
-import com.example.kotlin_social_media_app.model.User
-import com.example.kotlin_social_media_app.view.auth.SignInActivity
+import com.example.kotlin_social_media_app.model.user.User
 import com.example.kotlin_social_media_app.view.bottomNav.user_details.UserDetailsActivity
 import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
@@ -26,6 +26,7 @@ import io.reactivex.disposables.CompositeDisposable
 class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
     lateinit var searchUserAdapter: SearchUserAdapter
     lateinit var exploreAdapter: ExploreAdapter
+    private lateinit var mAuth: FirebaseAuth
 
     var disposables: CompositeDisposable? = null
 
@@ -45,21 +46,20 @@ class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_search, container, false)
 
+        mAuth = FirebaseAuth.getInstance()
+        val currentUser = mAuth.currentUser
+
         //
         recyclerViewSearch = view.findViewById(R.id.searchView)
         recyclerViewLayout = view.findViewById(R.id.rcyclerViewLayout)
         inputBookName = view.findViewById(R.id.inputBookName)
-
-        loadApiData(inputBookName.text.toString())
-
 
         //
         initExploreRecyclerView(view)
         initSearchRecyclerView(view)
 
         initSearchBook()
-        getExploreApiData("a")
-
+        getExploreApiData(currentUser?.email!!)
 
         return view
     }

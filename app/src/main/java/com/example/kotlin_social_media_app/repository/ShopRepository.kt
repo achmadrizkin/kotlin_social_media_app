@@ -1,7 +1,7 @@
 package com.example.kotlin_social_media_app.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.example.kotlin_social_media_app.model.explore.ExploreList
+import com.example.kotlin_social_media_app.model.product.ProductList
 import com.example.kotlin_social_media_app.model.user.UserList
 import com.example.kotlin_social_media_app.network.RetrofitService
 import io.reactivex.Observer
@@ -10,48 +10,28 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(private val retrofitService: RetrofitService) {
-    fun getExploreByEmailFromApiCall(email: String, exploreList: MutableLiveData<ExploreList>) {
-        retrofitService.getExploreByEmailAndOrderByCreateAt(email)
+class ShopRepository @Inject constructor(private val retrofitService: RetrofitService) {
+    fun getProductListFromApiCall(userList: MutableLiveData<ProductList>) {
+        retrofitService.getAllProductsList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(getExploreByEmailObserverRx(exploreList))
+            .subscribe(getProductListObserverRx(userList))
     }
 
-    fun getUserByEmailFromApiCall(email: String, userList: MutableLiveData<UserList>) {
-        retrofitService.getUserByEmail(email)
+    fun searchProductByNameFromApiCall(name_product: String, userList: MutableLiveData<ProductList>) {
+        retrofitService.searchProductByName(name_product)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(getUserByEmailObserverRx(userList))
+            .subscribe(searchProductByNameObserverRx(userList))
     }
 
-    private fun getExploreByEmailObserverRx(exploreList: MutableLiveData<ExploreList>): Observer<ExploreList> {
-        return object : Observer<ExploreList> {
+    private fun getProductListObserverRx(userList: MutableLiveData<ProductList>): Observer<ProductList> {
+        return object : Observer<ProductList> {
             override fun onSubscribe(d: Disposable) {
                 // start progress indicator
             }
 
-            override fun onNext(t: ExploreList) {
-                exploreList.postValue(t)
-            }
-
-            override fun onError(e: Throwable) {
-                exploreList.postValue(null)
-            }
-
-            override fun onComplete() {
-                // end progress indicator
-            }
-        }
-    }
-
-    private fun getUserByEmailObserverRx(userList: MutableLiveData<UserList>): Observer<UserList> {
-        return object : Observer<UserList> {
-            override fun onSubscribe(d: Disposable) {
-                // start progress indicator
-            }
-
-            override fun onNext(t: UserList) {
+            override fun onNext(t: ProductList) {
                 userList.postValue(t)
             }
 
@@ -64,4 +44,25 @@ class UserRepository @Inject constructor(private val retrofitService: RetrofitSe
             }
         }
     }
+
+    private fun searchProductByNameObserverRx(userList: MutableLiveData<ProductList>): Observer<ProductList> {
+        return object : Observer<ProductList> {
+            override fun onSubscribe(d: Disposable) {
+                // start progress indicator
+            }
+
+            override fun onNext(t: ProductList) {
+                userList.postValue(t)
+            }
+
+            override fun onError(e: Throwable) {
+                userList.postValue(null)
+            }
+
+            override fun onComplete() {
+                // end progress indicator
+            }
+        }
+    }
+
 }

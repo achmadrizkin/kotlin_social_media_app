@@ -1,4 +1,4 @@
-package com.example.kotlin_social_media_app.model
+package com.example.kotlin_social_media_app.model.user
 
 data class User (
     val name_user: String,

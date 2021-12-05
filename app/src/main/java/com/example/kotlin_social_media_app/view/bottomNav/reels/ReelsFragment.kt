@@ -5,19 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ReelsAdapter
 import com.example.kotlin_social_media_app.model.ReelsModel
+import com.example.kotlin_social_media_app.view_model.ReelsActivityViewModel
+import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.disposables.CompositeDisposable
 
+@AndroidEntryPoint
 class ReelsFragment : Fragment() {
-    var arrVideoModel = ArrayList<ReelsModel>()
-    var videoAdapter: ReelsAdapter? = null
-
+    lateinit var reelsAdapter: ReelsAdapter
     lateinit var viewPager: ViewPager2
+
+    var disposables: CompositeDisposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        disposables = CompositeDisposable()
     }
 
     override fun onCreateView(
@@ -30,15 +40,34 @@ class ReelsFragment : Fragment() {
         //
         viewPager = view.findViewById(R.id.viewPager)
 
-        arrVideoModel.add(ReelsModel("Tree with flowers","The branches of a tree wave in the breeze, with pointy leaves ","https://assets.mixkit.co/videos/preview/mixkit-tree-with-yellow-flowers-1173-large.mp4"))
-        arrVideoModel.add(ReelsModel("multicolored lights","A man with a small beard and mustache wearing a white sweater, sunglasses, and a backwards black baseball cap turns his head in different directions under changing colored lights.","https://assets.mixkit.co/videos/preview/mixkit-man-under-multicolored-lights-1237-large.mp4"))
-        arrVideoModel.add(ReelsModel("holding neon light","Bald man with a short beard wearing a large jean jacket holds a long tubular neon light thatch","https://assets.mixkit.co/videos/preview/mixkit-man-holding-neon-light-1238-large.mp4"))
-        arrVideoModel.add(ReelsModel("Sun over hills","The sun sets or rises over hills, a body of water beneath them.","https://assets.mixkit.co/videos/preview/mixkit-sun-over-hills-1183-large.mp4"))
-
-        videoAdapter = ReelsAdapter(arrVideoModel)
-        viewPager.adapter = videoAdapter
+        //
+        initGetReelsViewPager(view)
+        getReelsListApiData("a")
 
         return view
+    }
+
+    override fun onDestroy() {
+        disposables!!.dispose()
+        super.onDestroy()
+    }
+
+    private fun initGetReelsViewPager(view: View) {
+        viewPager = view.findViewById(R.id.viewPager)
+
+        reelsAdapter = ReelsAdapter()
+        viewPager.adapter = reelsAdapter
+    }
+
+    fun getReelsListApiData(input: String) {
+        val viewModel = ViewModelProvider(this).get(ReelsActivityViewModel::class.java)
+        viewModel.getReelsByNotEmailAndOrderByLikeObservable().observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                reelsAdapter.setReelsList(it.data)
+                reelsAdapter.notifyDataSetChanged()
+            }
+        })
+        viewModel.getReelsByNotEmailAndOrderByLikeOfData(input)
     }
 
     companion object {

@@ -9,11 +9,16 @@ import android.widget.TextView
 import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin_social_media_app.R
+import com.example.kotlin_social_media_app.model.Explore
+import com.example.kotlin_social_media_app.model.Reels
 import com.example.kotlin_social_media_app.model.ReelsModel
 
-class ReelsAdapter(arrVideo: ArrayList<ReelsModel>) :
-    RecyclerView.Adapter<ReelsAdapter.VideoViewHolder>() {
-    var arrVideoModel: ArrayList<ReelsModel> = arrVideo
+class ReelsAdapter: RecyclerView.Adapter<ReelsAdapter.VideoViewHolder>() {
+    private var arrVideoModel = ArrayList<Reels>()
+
+    fun setReelsList(arrVideoModel: ArrayList<Reels>) {
+        this.arrVideoModel = arrVideoModel
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
         return VideoViewHolder(
@@ -30,16 +35,14 @@ class ReelsAdapter(arrVideo: ArrayList<ReelsModel>) :
     }
 
     class VideoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
         val tvDesc = view.findViewById<TextView>(R.id.tvDesc)
         val videoView = view.findViewById<VideoView>(R.id.videoView)
         val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
 
 
-        fun setVideoData(videoModel: ReelsModel) {
-            tvTitle.text = videoModel.videoTitle
-            tvDesc.text = videoModel.videoDesc
-            videoView.setVideoPath(videoModel.videoUrl)
+        fun setVideoData(videoModel: Reels) {
+            tvDesc.text = videoModel.description_post
+            videoView.setVideoPath(videoModel.video_post)
 
             //
             videoView.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {

@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.*
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.adapter.SearchUserAdapter
+import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.model.user.User
+import com.example.kotlin_social_media_app.view.bottomNav.post_details.PostDetailsActivity
 import com.example.kotlin_social_media_app.view.bottomNav.user_details.UserDetailsActivity
 import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -25,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
+class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener, ExploreAdapter.OnItemClickListener {
     lateinit var searchUserAdapter: SearchUserAdapter
     lateinit var exploreAdapter: ExploreAdapter
     private lateinit var mAuth: FirebaseAuth
@@ -65,7 +67,7 @@ class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
         tvNoResult = view.findViewById(R.id.tvNoResult)
 
         //
-        initExploreRecyclerView(view)
+        initExploreRecyclerView()
         initSearchRecyclerView(view)
 
         initSearchBook()
@@ -85,11 +87,11 @@ class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
         }
     }
 
-    private fun initExploreRecyclerView(view: View) {
+    private fun initExploreRecyclerView() {
         recyclerViewLayout.apply {
             layoutManager = GridLayoutManager(activity, 3)
 
-            exploreAdapter = ExploreAdapter()
+            exploreAdapter = ExploreAdapter(this@SearchFragment)
             adapter = exploreAdapter
         }
     }
@@ -169,6 +171,11 @@ class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
     override fun onItemClickListenerUser(user: User) {
         val i = Intent(activity, UserDetailsActivity::class.java)
         i.putExtra("email", user.email_user)
+        startActivity(i)
+    }
+
+    override fun onItemClickListenerExplore(explore: Explore) {
+        val i = Intent(activity, PostDetailsActivity::class.java)
         startActivity(i)
     }
 }

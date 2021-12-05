@@ -1,5 +1,6 @@
 package com.example.kotlin_social_media_app.view.bottomNav.shop
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,13 +18,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.adapter.ShopAdapter
+import com.example.kotlin_social_media_app.model.product.Product
+import com.example.kotlin_social_media_app.view.bottomNav.post_details.PostDetailsActivity
+import com.example.kotlin_social_media_app.view.bottomNav.product_details.ProductDetailsActivity
 import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
 import com.example.kotlin_social_media_app.view_model.ShopActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class ShopFragment : Fragment() {
+class ShopFragment : Fragment(), ShopAdapter.OnItemClickListener {
     private lateinit var shopAdapter: ShopAdapter
     private lateinit var shopAdapter2: ShopAdapter
 
@@ -71,7 +75,7 @@ class ShopFragment : Fragment() {
         rcyclerViewShopLayout.apply {
             layoutManager = GridLayoutManager(activity, 2)
 
-            shopAdapter = ShopAdapter()
+            shopAdapter = ShopAdapter(this@ShopFragment)
             adapter = shopAdapter
         }
     }
@@ -80,7 +84,7 @@ class ShopFragment : Fragment() {
         searchViewShopLayout.apply {
             layoutManager = GridLayoutManager(activity, 2)
 
-            shopAdapter2 = ShopAdapter()
+            shopAdapter2 = ShopAdapter(this@ShopFragment)
             adapter = shopAdapter2
         }
     }
@@ -158,5 +162,10 @@ class ShopFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = ShopFragment()
+    }
+
+    override fun onItemClickListenerProduct(product: Product) {
+        val i = Intent(activity, ProductDetailsActivity::class.java)
+        startActivity(i)
     }
 }

@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
+import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.view.auth.SignInActivity
+import com.example.kotlin_social_media_app.view.bottomNav.post_details.PostDetailsActivity
 import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
 import com.example.kotlin_social_media_app.view_model.UserActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -23,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class UserFragment : Fragment() {
+class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
     lateinit var recyclerViewUserLayout : RecyclerView
     lateinit var exploreAdapter: ExploreAdapter
     private lateinit var mAuth: FirebaseAuth
@@ -89,7 +91,7 @@ class UserFragment : Fragment() {
         recyclerViewUserLayout.apply {
             layoutManager = GridLayoutManager(activity, 3)
 
-            exploreAdapter = ExploreAdapter()
+            exploreAdapter = ExploreAdapter(this@UserFragment)
             adapter = exploreAdapter
         }
     }
@@ -144,5 +146,10 @@ class UserFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = UserFragment()
+    }
+
+    override fun onItemClickListenerExplore(explore: Explore) {
+        val i = Intent(activity, PostDetailsActivity::class.java)
+        startActivity(i)
     }
 }

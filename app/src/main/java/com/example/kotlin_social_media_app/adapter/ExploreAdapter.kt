@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.model.explore.Explore
 
-class ExploreAdapter: RecyclerView.Adapter<ExploreAdapter.MyViewHolder>() {
+class ExploreAdapter(val clickListener: OnItemClickListener): RecyclerView.Adapter<ExploreAdapter.MyViewHolder>() {
     private var exploreList = ArrayList<Explore>()
 
     fun setExploreList(exploreList: ArrayList<Explore>) {
@@ -27,6 +27,9 @@ class ExploreAdapter: RecyclerView.Adapter<ExploreAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: ExploreAdapter.MyViewHolder, position: Int) {
         holder.bind(exploreList[position])
+        holder.itemView.setOnClickListener {
+            clickListener.onItemClickListenerExplore(exploreList[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -40,5 +43,9 @@ class ExploreAdapter: RecyclerView.Adapter<ExploreAdapter.MyViewHolder>() {
             val url = data.image_post
             Glide.with(thumbImageViewExplore).load(url).into(thumbImageViewExplore)
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClickListenerExplore(explore: Explore)
     }
 }

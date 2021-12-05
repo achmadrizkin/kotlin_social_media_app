@@ -10,7 +10,7 @@ import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.model.product.Product
 
-class ShopAdapter: RecyclerView.Adapter<ShopAdapter.MyViewHolder>() {
+class ShopAdapter(val clickListener: ShopAdapter.OnItemClickListener): RecyclerView.Adapter<ShopAdapter.MyViewHolder>() {
     private var shopList = ArrayList<Product>()
 
     fun setShopList(shopList: ArrayList<Product>) {
@@ -28,6 +28,9 @@ class ShopAdapter: RecyclerView.Adapter<ShopAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: ShopAdapter.MyViewHolder, position: Int) {
         holder.bind(shopList[position])
+        holder.itemView.setOnClickListener {
+            clickListener.onItemClickListenerProduct(shopList[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -41,5 +44,9 @@ class ShopAdapter: RecyclerView.Adapter<ShopAdapter.MyViewHolder>() {
             val url = data.image_url
             Glide.with(thumbImageViewExplore).load(url).into(thumbImageViewExplore)
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClickListenerProduct(product: Product)
     }
 }

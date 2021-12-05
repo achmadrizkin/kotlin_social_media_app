@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -30,6 +32,8 @@ class ShopFragment : Fragment() {
 
     //
     private lateinit var inputProductName: EditText
+    private lateinit var ivNoResult: ImageView
+    private lateinit var tvNoResult: TextView
 
     //
     private lateinit var rcyclerViewShopLayout : RecyclerView
@@ -50,6 +54,8 @@ class ShopFragment : Fragment() {
         rcyclerViewShopLayout = view.findViewById(R.id.rcyclerViewShopLayout)
         searchViewShopLayout = view.findViewById(R.id.searchViewShopLayout)
         inputProductName = view.findViewById(R.id.inputProductName)
+        ivNoResult = view.findViewById(R.id.ivNoResult)
+        tvNoResult = view.findViewById(R.id.tvNoResult)
 
         //
         initAllProductListRecyclerView()
@@ -100,6 +106,10 @@ class ShopFragment : Fragment() {
             if (it != null) {
                 shopAdapter.setShopList(it.data)
                 shopAdapter.notifyDataSetChanged()
+
+                //
+                ivNoResult.visibility = View.GONE
+                tvNoResult.visibility = View.GONE
             }
         })
         viewModel.getAllProductListOfData()
@@ -113,16 +123,28 @@ class ShopFragment : Fragment() {
                 rcyclerViewShopLayout.visibility = View.GONE
 
                 //
+                ivNoResult.visibility = View.GONE
+                tvNoResult.visibility = View.GONE
+
+                //
                 shopAdapter2.setShopList(it.data)
                 shopAdapter2.notifyDataSetChanged()
             } else {
                 searchViewShopLayout.visibility = View.GONE
-                rcyclerViewShopLayout.visibility = View.VISIBLE
+                rcyclerViewShopLayout.visibility = View.GONE
+
+                //
+                ivNoResult.visibility = View.VISIBLE
+                tvNoResult.visibility = View.VISIBLE
             }
 
             if (input.isEmpty() || input == "") {
                 searchViewShopLayout.visibility = View.GONE
                 rcyclerViewShopLayout.visibility = View.VISIBLE
+
+                //
+                ivNoResult.visibility = View.GONE
+                tvNoResult.visibility = View.GONE
             }
         })
         viewModel.searchProductByNameOfData(input)

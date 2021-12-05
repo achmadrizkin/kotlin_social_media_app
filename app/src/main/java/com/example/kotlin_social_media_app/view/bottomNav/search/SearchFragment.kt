@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -34,6 +36,10 @@ class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
     lateinit var recyclerViewLayout : RecyclerView
     lateinit var inputBookName : EditText
 
+    //
+    private lateinit var ivNoResult: ImageView
+    private lateinit var tvNoResult: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         disposables = CompositeDisposable()
@@ -53,6 +59,10 @@ class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
         recyclerViewSearch = view.findViewById(R.id.searchView)
         recyclerViewLayout = view.findViewById(R.id.rcyclerViewLayout)
         inputBookName = view.findViewById(R.id.inputBookName)
+
+        //
+        ivNoResult = view.findViewById(R.id.ivNoResult)
+        tvNoResult = view.findViewById(R.id.tvNoResult)
 
         //
         initExploreRecyclerView(view)
@@ -105,6 +115,10 @@ class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
             if (it != null) {
                 exploreAdapter.setExploreList(it.data)
                 exploreAdapter.notifyDataSetChanged()
+
+                //
+                ivNoResult.visibility = View.GONE
+                tvNoResult.visibility = View.GONE
             }
         })
         viewModel.getExploreListOfData(input)
@@ -117,17 +131,26 @@ class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
                 recyclerViewSearch.visibility = View.VISIBLE
                 recyclerViewLayout.visibility = View.GONE
 
+                ivNoResult.visibility = View.GONE
+                tvNoResult.visibility = View.GONE
+
                 //
                 searchUserAdapter.setBookList(it.data)
                 searchUserAdapter.notifyDataSetChanged()
             } else {
                 recyclerViewSearch.visibility = View.GONE
-                recyclerViewLayout.visibility = View.VISIBLE
+                recyclerViewLayout.visibility = View.GONE
+
+                ivNoResult.visibility = View.VISIBLE
+                tvNoResult.visibility = View.VISIBLE
             }
 
             if (input.isEmpty() || input == "") {
                 recyclerViewSearch.visibility = View.GONE
                 recyclerViewLayout.visibility = View.VISIBLE
+
+                ivNoResult.visibility = View.GONE
+                tvNoResult.visibility = View.GONE
             }
         })
         viewModel.searchUserListOfData(input)

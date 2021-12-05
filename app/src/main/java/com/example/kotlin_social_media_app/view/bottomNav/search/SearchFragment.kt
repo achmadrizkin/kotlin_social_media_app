@@ -1,5 +1,6 @@
 package com.example.kotlin_social_media_app.view.bottomNav.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,12 +15,15 @@ import androidx.recyclerview.widget.*
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.adapter.SearchUserAdapter
+import com.example.kotlin_social_media_app.model.User
+import com.example.kotlin_social_media_app.view.auth.SignInActivity
+import com.example.kotlin_social_media_app.view.bottomNav.user_details.UserDetailsActivity
 import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener {
     lateinit var searchUserAdapter: SearchUserAdapter
     lateinit var exploreAdapter: ExploreAdapter
 
@@ -66,7 +70,7 @@ class SearchFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
 
             //
-            searchUserAdapter = SearchUserAdapter()
+            searchUserAdapter = SearchUserAdapter(this@SearchFragment)
             adapter = searchUserAdapter
         }
     }
@@ -137,5 +141,11 @@ class SearchFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = SearchFragment()
+    }
+
+    override fun onItemClickListenerUser(user: User) {
+        val i = Intent(activity, UserDetailsActivity::class.java)
+        i.putExtra("email", user.email_user)
+        startActivity(i)
     }
 }

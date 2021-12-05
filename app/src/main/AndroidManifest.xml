@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Kotlin_social_media_app"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.bottomNav.user_details.UserDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.auth.SignInActivity"
             android:exported="false" />
         <activity

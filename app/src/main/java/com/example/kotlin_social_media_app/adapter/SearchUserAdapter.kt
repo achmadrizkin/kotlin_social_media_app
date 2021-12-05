@@ -12,7 +12,7 @@ import com.example.kotlin_social_media_app.model.User
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-class SearchUserAdapter: RecyclerView.Adapter<SearchUserAdapter.MyViewHolder>() {
+class SearchUserAdapter(val clickListener: OnItemClickListener): RecyclerView.Adapter<SearchUserAdapter.MyViewHolder>() {
     private var userList = ArrayList<User>()
 
     fun setBookList(userList: ArrayList<User>) {
@@ -30,6 +30,9 @@ class SearchUserAdapter: RecyclerView.Adapter<SearchUserAdapter.MyViewHolder>() 
 
     override fun onBindViewHolder(holder: SearchUserAdapter.MyViewHolder, position: Int) {
         holder.bind(userList[position])
+        holder.itemView.setOnClickListener {
+            clickListener.onItemClickListenerUser(userList[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -50,5 +53,9 @@ class SearchUserAdapter: RecyclerView.Adapter<SearchUserAdapter.MyViewHolder>() 
             val url = data.image_url
             Glide.with(thumbImageView).load(url).circleCrop().into(thumbImageView)
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClickListenerUser(user : User)
     }
 }

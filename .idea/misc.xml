@@ -6,18 +6,21 @@
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14537037037037037" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/drawable/custom_input.xml" value="0.14537037037037037" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/drawable/ic_add_to_photos.xml" value="0.14351851851851852" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/drawable/ic_back.xml" value="0.16574074074074074" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14537037037037037" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/activity_bottom_nav.xml" value="0.20416666666666666" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/activity_main.xml" value="0.14" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/activity_search.xml" value="0.16" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/activity_sign_in.xml" value="0.1" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/activity_user_details.xml" value="0.14" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/fragment_reels.xml" value="0.11794871794871795" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/fragment_search.xml" value="0.16" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/fragment_shop.xml" value="0.20416666666666666" />
-        <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/fragment_user.xml" value="0.18" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/fragment_user.xml" value="0.14" />
+        <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/item_video.xml" value="0.1675213675213675" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/recycler_list_explore.xml" value="0.11794871794871795" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/layout/recycler_list_row.xml" value="0.1" />
         <entry key="..\:/Rizki/,KOTLIN/kotlin_social_media_app/app/src/main/res/menu/bottom_menu.xml" value="0.19010416666666666" />

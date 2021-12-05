@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,43 +22,15 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/ivExit"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="300dp"
-
-                android:src="@drawable/ic_exit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.761"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black" />
-
-            <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
 
                 android:layout_marginEnd="32dp"
-                android:src="@drawable/ic_lock"
+                android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.041"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="290dp"
-
-                android:src="@drawable/ic_add_to_photos"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/black" />
@@ -197,20 +169,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
-                android:text="Edit Profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
-
-            <Button
-                android:visibility="gone"
                 android:id="@+id/buttonFollow"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -224,7 +182,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
             <Button
-                android:visibility="gone"
                 android:id="@+id/buttonMessage"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -249,6 +206,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/ivEmpty"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -262,6 +220,7 @@
 
         <TextView
             android:id="@+id/tvEmpty"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
@@ -275,4 +234,4 @@
             app:layout_constraintVertical_bias="0.101" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

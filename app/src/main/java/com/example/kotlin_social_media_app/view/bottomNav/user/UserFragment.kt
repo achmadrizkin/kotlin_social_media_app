@@ -30,9 +30,11 @@ class UserFragment : Fragment() {
 
     //
     private lateinit var ivImageUrl: ImageView
+    private lateinit var ivEmpty: ImageView
 
     private lateinit var tvUserNameHeader: TextView
     private lateinit var tvUserName: TextView
+    private lateinit var tvEmpty: TextView
 
     private lateinit var tvPostCount: TextView
     private lateinit var tvFollowersCount: TextView
@@ -66,10 +68,12 @@ class UserFragment : Fragment() {
         tvPostCount = view.findViewById(R.id.tvPostCount)
         tvFollowersCount = view.findViewById(R.id.tvFollowersCount)
         tvFollowingCount = view.findViewById(R.id.tvFollowingCount)
+        ivEmpty = view.findViewById(R.id.ivEmpty)
+        tvEmpty = view.findViewById(R.id.tvEmpty)
 
         initExploreRecyclerView(view)
         getUserByEmail(currentUser?.email!!)
-        getExploreByEmailApiData(currentUser?.email!!)
+        getExploreByEmailApiData(currentUser.email!!)
 
         ivExit.setOnClickListener {
             mAuth.signOut()
@@ -109,6 +113,9 @@ class UserFragment : Fragment() {
                 tvPostCount.setText(it.data[0].post.toString())
                 tvFollowersCount.setText(it.data[0].followers.toString())
                 tvFollowingCount.setText(it.data[0].following.toString())
+
+                ivEmpty.visibility = View.GONE
+                tvEmpty.visibility = View.GONE
             } else {
                 recyclerViewUserLayout.visibility = View.GONE
             }

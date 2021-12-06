@@ -148,7 +148,7 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
         fun newInstance() = UserFragment()
     }
 
-    override fun onItemClickListenerExplore(explore: Explore) {
+    override fun onItemClickListenerExplore(explore: Explore, position: Int) {
         val i = Intent(activity, PostDetailsActivity::class.java)
         startActivity(i)
     }

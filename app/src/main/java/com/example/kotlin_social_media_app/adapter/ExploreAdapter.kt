@@ -11,6 +11,7 @@ import com.example.kotlin_social_media_app.model.explore.Explore
 
 class ExploreAdapter(val clickListener: OnItemClickListener): RecyclerView.Adapter<ExploreAdapter.MyViewHolder>() {
     private var exploreList = ArrayList<Explore>()
+    private val lastCheckedPosition = -1
 
     fun setExploreList(exploreList: ArrayList<Explore>) {
         this.exploreList = exploreList
@@ -28,7 +29,7 @@ class ExploreAdapter(val clickListener: OnItemClickListener): RecyclerView.Adapt
     override fun onBindViewHolder(holder: ExploreAdapter.MyViewHolder, position: Int) {
         holder.bind(exploreList[position])
         holder.itemView.setOnClickListener {
-            clickListener.onItemClickListenerExplore(exploreList[position])
+            clickListener.onItemClickListenerExplore(exploreList[position], position)
         }
     }
 
@@ -46,6 +47,6 @@ class ExploreAdapter(val clickListener: OnItemClickListener): RecyclerView.Adapt
     }
 
     interface OnItemClickListener {
-        fun onItemClickListenerExplore(explore: Explore)
+        fun onItemClickListenerExplore(explore: Explore, position: Int)
     }
 }

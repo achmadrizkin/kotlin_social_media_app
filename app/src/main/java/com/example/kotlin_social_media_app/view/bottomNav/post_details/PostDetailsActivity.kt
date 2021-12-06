@@ -1,9 +1,10 @@
 package com.example.kotlin_social_media_app.view.bottomNav.post_details
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.PostDetailsAdapter
 import com.example.kotlin_social_media_app.view.bottomNav.BottomNavActivity
-import com.example.kotlin_social_media_app.view.bottomNav.search.SearchFragment
 import com.example.kotlin_social_media_app.view_model.PostDetailsActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +46,15 @@ class PostDetailsActivity : AppCompatActivity() {
 
         //
         disposables = CompositeDisposable()
+
+        //
+        val position = intent.getStringExtra("position")
+        Handler().postDelayed(
+            Runnable {
+                recyclerViewPostDetails.scrollToPosition(position!!.toInt())
+            }, 50
+        )
+
 
         //
         ivBack.setOnClickListener {

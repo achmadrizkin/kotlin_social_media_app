@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -174,8 +176,40 @@ class SearchFragment : Fragment(), SearchUserAdapter.OnItemClickListener, Explor
         startActivity(i)
     }
 
-    override fun onItemClickListenerExplore(explore: Explore) {
+    override fun onItemClickListenerExplore(explore: Explore, position: Int) {
         val i = Intent(activity, PostDetailsActivity::class.java)
+
+        //
+        Toast.makeText(activity, position.toString(), Toast.LENGTH_SHORT).show()
+        i.putExtra("position", position.toString())
+
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+        Log.d("TAG", position.toString())
+
         startActivity(i)
     }
 }

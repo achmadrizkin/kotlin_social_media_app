@@ -3,6 +3,7 @@ package com.example.kotlin_social_media_app.view.bottomNav.product_details
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.kotlin_social_media_app.R
+import io.reactivex.disposables.CompositeDisposable
 
 class ProductDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -23,6 +23,9 @@ interface RetrofitService {
     @GET("users/email/{email}")
     fun getUserByEmail(@Path("email") email: String): Observable<UserList>
 
+    @GET("products/a/{name}/{email}")
+    fun getProductByNameAndEmail(@Path("name") name: String, @Path("email") email: String): Observable<ProductList>
+
     @GET("reels/e/{email}")
     fun getReelsByNotEmailAndOrderByLike(@Path("email") email: String): Observable<ReelsList>
 

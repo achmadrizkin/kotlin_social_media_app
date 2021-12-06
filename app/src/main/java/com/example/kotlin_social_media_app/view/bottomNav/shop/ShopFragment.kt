@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,8 @@ import com.example.kotlin_social_media_app.view.bottomNav.post_details.PostDetai
 import com.example.kotlin_social_media_app.view.bottomNav.product_details.ProductDetailsActivity
 import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
 import com.example.kotlin_social_media_app.view_model.ShopActivityViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.midtrans.sdk.corekit.models.snap.TransactionResult
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
@@ -30,6 +33,10 @@ import io.reactivex.disposables.CompositeDisposable
 class ShopFragment : Fragment(), ShopAdapter.OnItemClickListener {
     private lateinit var shopAdapter: ShopAdapter
     private lateinit var shopAdapter2: ShopAdapter
+
+    //
+    private var transactionResult = TransactionResult()
+    private lateinit var mAuth: FirebaseAuth
 
     //
     var disposables: CompositeDisposable? = null
@@ -166,6 +173,12 @@ class ShopFragment : Fragment(), ShopAdapter.OnItemClickListener {
 
     override fun onItemClickListenerProduct(product: Product) {
         val i = Intent(activity, ProductDetailsActivity::class.java)
+
+        i.putExtra("name", product.name_product)
+        i.putExtra("description", product.description)
+        i.putExtra("image_url", product.image_url)
+        i.putExtra("price", product.price.toString())
+
         startActivity(i)
     }
 }

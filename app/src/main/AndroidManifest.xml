@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.kotlin_social_media_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyHiltApp"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlin_social_media_app"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:usesCleartextTraffic" >
         <activity
             android:name=".view.bottomNav.product_details.ProductDetailsActivity"
             android:exported="false" />
@@ -27,7 +28,7 @@
             android:exported="false" />
         <activity
             android:name=".view.bottomNav.BottomNavActivity"
-            android:exported="false"
+            android:exported="true"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.splash_screen.MainActivity"
@@ -38,6 +39,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_ziJgUOoe3bpNSM" />
+        <meta-data
+            android:name="com.google.gms.wallet.api.enabled"
+            android:value="true" />
     </application>
 
 </manifest>

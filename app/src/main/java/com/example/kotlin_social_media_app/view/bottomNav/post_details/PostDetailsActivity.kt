@@ -3,6 +3,7 @@ package com.example.kotlin_social_media_app.view.bottomNav.post_details
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -43,6 +44,7 @@ class PostDetailsActivity : AppCompatActivity() {
 
         //
         recyclerViewPostDetails = findViewById(R.id.recyclerViewPostDetails)
+        recyclerViewPostDetails.visibility = View.GONE // check if dataset is ready to use, if not, then wait until post delayed
 
         //
         disposables = CompositeDisposable()
@@ -52,7 +54,8 @@ class PostDetailsActivity : AppCompatActivity() {
         Handler().postDelayed(
             Runnable {
                 recyclerViewPostDetails.scrollToPosition(position!!.toInt())
-            }, 50
+                recyclerViewPostDetails.visibility = View.VISIBLE
+            }, 200
         )
 
 

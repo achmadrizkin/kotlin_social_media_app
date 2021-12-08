@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -17,8 +18,7 @@ import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.view.auth.SignInActivity
-import com.example.kotlin_social_media_app.view.bottomNav.post_details.PostDetailsActivity
-import com.example.kotlin_social_media_app.view_model.SearchActivityViewModel
+import com.example.kotlin_social_media_app.view.bottomNav.user_post_details.UserPostActivity
 import com.example.kotlin_social_media_app.view_model.UserActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,6 +37,9 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
     private lateinit var tvUserNameHeader: TextView
     private lateinit var tvUserName: TextView
     private lateinit var tvEmpty: TextView
+    private lateinit var imguserUrl: String
+
+    private lateinit var buttonEditProfile: Button
 
     private lateinit var tvPostCount: TextView
     private lateinit var tvFollowersCount: TextView
@@ -109,6 +112,7 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
 
                     // image
                     Glide.with(ivImageUrl).load(it.data[0].image_url).circleCrop().into(ivImageUrl)
+                    imguserUrl = it.data[0].image_url
                 }
 
                 //
@@ -149,7 +153,14 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
     }
 
     override fun onItemClickListenerExplore(explore: Explore, position: Int) {
-        val i = Intent(activity, PostDetailsActivity::class.java)
+        val i = Intent(activity, UserPostActivity::class.java)
+
+        i.putExtra("image_url", explore.image_url)
+        i.putExtra("name_user", explore.name_user)
+        i.putExtra("image_post", explore.image_post)
+        i.putExtra("like_post", explore.like_post)
+        i.putExtra("description_post", explore.description_post)
+
         startActivity(i)
     }
 }

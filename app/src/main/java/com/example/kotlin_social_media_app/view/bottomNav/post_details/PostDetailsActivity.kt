@@ -51,12 +51,16 @@ class PostDetailsActivity : AppCompatActivity() {
 
         //
         val position = intent.getStringExtra("position")
-        Handler().postDelayed(
-            Runnable {
-                recyclerViewPostDetails.scrollToPosition(position!!.toInt())
-                recyclerViewPostDetails.visibility = View.VISIBLE
-            }, 200
-        )
+        if (position != null) {
+            Handler().postDelayed(
+                Runnable {
+                    recyclerViewPostDetails.scrollToPosition(position.toInt())
+                    recyclerViewPostDetails.visibility = View.VISIBLE
+                }, 200
+            )
+        } else {
+            recyclerViewPostDetails.visibility = View.VISIBLE
+        }
 
 
         //

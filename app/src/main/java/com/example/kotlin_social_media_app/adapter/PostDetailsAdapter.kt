@@ -1,14 +1,17 @@
 package com.example.kotlin_social_media_app.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.model.explore.Explore
+import com.example.kotlin_social_media_app.view.bottomNav.comment.CommentActivity
 
 class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>() {
     private var exploreList = ArrayList<Explore>()
@@ -28,6 +31,16 @@ class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>(
 
     override fun onBindViewHolder(holder: PostDetailsAdapter.MyViewHolder, position: Int) {
         holder.bind(exploreList[position])
+        holder.ivComment.setOnClickListener {
+            val i = Intent(it.context, CommentActivity::class.java)
+
+            i.putExtra("name", exploreList[position].name_user)
+            i.putExtra("description_post", exploreList[position].description_post)
+            i.putExtra("image_url", exploreList[position].image_url)
+            i.putExtra("id", exploreList[position].id)
+
+            it.context.startActivity(i)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -42,6 +55,7 @@ class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>(
 
         val ivProfilePicture = view.findViewById<ImageView>(R.id.ivProfilePicture)
         val ivPicturePost = view.findViewById<ImageView>(R.id.ivPicturePost)
+        val ivComment = view.findViewById<ImageView>(R.id.ivComment)
 
         fun bind(data: Explore) {
             tvInstagramName.text = data.name_user

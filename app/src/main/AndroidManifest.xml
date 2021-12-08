@@ -4,6 +4,7 @@
     package="com.example.kotlin_social_media_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyHiltApp"
@@ -13,7 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlin_social_media_app"
         android:usesCleartextTraffic="true"
-        tools:replace="android:usesCleartextTraffic" >
+        tools:replace="android:usesCleartextTraffic">
+        <activity
+            android:name=".view.bottomNav.comment.CommentActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity
+            android:name=".view.bottomNav.user_post_details.UserPostActivity"
+            android:exported="false" />
         <activity
             android:name=".view.bottomNav.product_details.ProductDetailsActivity"
             android:exported="false" />

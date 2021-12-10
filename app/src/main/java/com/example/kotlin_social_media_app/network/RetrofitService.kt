@@ -1,5 +1,6 @@
 package com.example.kotlin_social_media_app.network
 
+import com.example.kotlin_social_media_app.model.comment.Comment
 import com.example.kotlin_social_media_app.model.comment.CommentList
 import com.example.kotlin_social_media_app.model.explore.ExploreList
 import com.example.kotlin_social_media_app.model.product.ProductList
@@ -7,6 +8,7 @@ import com.example.kotlin_social_media_app.model.reels.ReelsList
 import com.example.kotlin_social_media_app.model.user.UserList
 import com.example.kotlin_social_media_app.model.user_auth.UserAuth
 import io.reactivex.Observable
+import retrofit2.Call
 import retrofit2.http.*
 
 import retrofit2.http.POST
@@ -40,6 +42,9 @@ interface RetrofitService {
 
     @GET("products/s/{name_product}")
     fun searchProductByName(@Path("name_product") name_product: String): Observable<ProductList>
+
+    @POST("comment/a")
+    fun postComment(@Body params: Comment): Observable<Comment>
 
     @POST("users/a/{email_user}")
     fun postUserOrUpdate(@Path("email_user") email_user: String): Observable<UserAuth>

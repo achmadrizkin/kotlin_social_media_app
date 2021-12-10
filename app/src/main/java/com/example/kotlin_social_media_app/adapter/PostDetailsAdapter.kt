@@ -34,10 +34,11 @@ class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>(
         holder.ivComment.setOnClickListener {
             val i = Intent(it.context, CommentActivity::class.java)
 
-            i.putExtra("name", exploreList[position].name_user)
             i.putExtra("description_post", exploreList[position].description_post)
-            i.putExtra("image_url", exploreList[position].image_url)
             i.putExtra("id", exploreList[position].id)
+            i.putExtra("to_email", exploreList[position].email_user)
+            i.putExtra("image_url", exploreList[position].image_url)
+            i.putExtra("name", exploreList[position].name_user)
 
             it.context.startActivity(i)
         }

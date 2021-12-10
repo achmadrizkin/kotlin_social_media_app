@@ -108,26 +108,49 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewComment"
         android:layout_width="match_parent"
-        android:layout_height="485dp"
+        android:layout_height="435dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout9"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Comment"
-        android:background="@drawable/custom_input"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewComment"
-        app:layout_constraintVertical_bias="0.0">
-    </EditText>
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewComment">
+
+        <EditText
+            android:id="@+id/etPostComment"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:background="@drawable/custom_input"
+            android:hint="Comment"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewComment"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/ivSend"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_send"
+            app:tint="@color/black" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

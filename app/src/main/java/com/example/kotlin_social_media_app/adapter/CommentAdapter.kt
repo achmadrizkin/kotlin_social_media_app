@@ -35,12 +35,10 @@ class CommentAdapter: RecyclerView.Adapter<CommentAdapter.MyViewHolder>() {
         val ivPicture = view.findViewById<ImageView>(R.id.ivPicture)
         val tvNameUser = view.findViewById<TextView>(R.id.tvNameUser)
         val tvDescription = view.findViewById<TextView>(R.id.tvDescription)
-        val tvCreateAt = view.findViewById<TextView>(R.id.tvCreateAt)
 
         fun bind(data: Comment) {
             tvNameUser.text = data.name_user
             tvDescription.text = data.comment
-            tvCreateAt.text = data.create_at
 
             Glide.with(ivPicture).load(data.image_url).circleCrop().into(ivPicture)
         }

@@ -12,7 +12,7 @@ import javax.inject.Inject
 class ReelsRepository @Inject constructor(private val retrofitService: RetrofitService) {
     fun getReelsByNotEmailAndOrderByLikeFromApiCall(email: String, reelsList: MutableLiveData<ReelsList>) {
         retrofitService.getReelsByNotEmailAndOrderByLike(email)
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(getReelsListObserverRx(reelsList))
     }

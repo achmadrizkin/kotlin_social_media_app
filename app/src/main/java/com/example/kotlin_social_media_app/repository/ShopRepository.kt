@@ -13,7 +13,7 @@ import javax.inject.Inject
 class ShopRepository @Inject constructor(private val retrofitService: RetrofitService) {
     fun getProductListFromApiCall(userList: MutableLiveData<ProductList>) {
         retrofitService.getAllProductsList()
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(getProductListObserverRx(userList))
     }

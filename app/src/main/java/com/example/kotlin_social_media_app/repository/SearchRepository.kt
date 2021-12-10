@@ -20,7 +20,7 @@ class SearchRepository @Inject constructor(private val retrofitService: Retrofit
 
     fun getExploreOrderByLikeFromApiCall(user: String, exploreList: MutableLiveData<ExploreList>) {
         retrofitService.getExploreOrderByLike(user)
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(getExploreListObserverRx(exploreList))
     }

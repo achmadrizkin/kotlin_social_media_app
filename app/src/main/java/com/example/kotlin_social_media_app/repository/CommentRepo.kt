@@ -19,7 +19,7 @@ import javax.inject.Inject
 class CommentRepo @Inject constructor(private val retrofitService: RetrofitService) {
     fun getCommentByToUserAndDescAndOrderByCreateAtFromApiCall(postUser: String, toId: String, userList: MutableLiveData<CommentList>) {
         retrofitService.getCommentByToUserAndDesAndToIdOrderByCreateAt(postUser, toId)
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(getCommentByToUserAndDescAndOrderByCreateAtObserverRx(userList))
     }

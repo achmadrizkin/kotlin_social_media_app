@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.view.bottomNav.comment.CommentActivity
+import com.example.kotlin_social_media_app.view.bottomNav.user_details_explore.UserDetailsExploreActivity
+import com.midtrans.sdk.uikit.activities.UserDetailsActivity
 
 class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>() {
     private var exploreList = ArrayList<Explore>()
@@ -39,6 +41,13 @@ class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>(
             i.putExtra("to_email", exploreList[position].email_user)
             i.putExtra("image_url", exploreList[position].image_url)
             i.putExtra("name", exploreList[position].name_user)
+
+            it.context.startActivity(i)
+        }
+        holder.ivProfilePicture.setOnClickListener {
+            val i = Intent(it.context, UserDetailsExploreActivity::class.java)
+
+            i.putExtra("email1", exploreList[position].email_user)
 
             it.context.startActivity(i)
         }

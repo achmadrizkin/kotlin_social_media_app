@@ -18,6 +18,7 @@ import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.view.auth.SignInActivity
+import com.example.kotlin_social_media_app.view.bottomNav.following.FollowingActivity
 import com.example.kotlin_social_media_app.view.bottomNav.user_post_details.UserPostActivity
 import com.example.kotlin_social_media_app.view_model.UserActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -83,6 +84,15 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
         ivExit.setOnClickListener {
             mAuth.signOut()
             val intent = Intent(activity, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+        tvFollowingCount.setOnClickListener {
+            val intent = Intent(activity, FollowingActivity::class.java)
+
+            //
+            intent.putExtra("email", currentUser?.email!!)
+
             startActivity(intent)
         }
 

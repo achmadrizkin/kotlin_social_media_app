@@ -16,9 +16,15 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:usesCleartextTraffic">
         <activity
-            android:name=".view.bottomNav.comment.CommentActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:name=".view.bottomNav.user_details_explore.UserDetailsExploreActivity"
             android:exported="false" />
+        <activity
+            android:name=".view.bottomNav.following.FollowingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.bottomNav.comment.CommentActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.bottomNav.user_post_details.UserPostActivity"
             android:exported="false" />

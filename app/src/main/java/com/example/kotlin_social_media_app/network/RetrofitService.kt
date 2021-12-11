@@ -7,6 +7,7 @@ import com.example.kotlin_social_media_app.model.product.ProductList
 import com.example.kotlin_social_media_app.model.reels.ReelsList
 import com.example.kotlin_social_media_app.model.user.UserList
 import com.example.kotlin_social_media_app.model.user_auth.UserAuth
+import com.example.kotlin_social_media_app.model.user_following.UserFollowingList
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.*
@@ -42,6 +43,12 @@ interface RetrofitService {
 
     @GET("products/s/{name_product}")
     fun searchProductByName(@Path("name_product") name_product: String): Observable<ProductList>
+
+    @GET("user/followers/{user_email}")
+    fun getUserFollowing(@Path("user_email") user_email: String): Observable<UserFollowingList>
+
+    @GET("explore/home/{email_user}")
+    fun getFollowingByEmailUser(@Path("email_user") email_user: String): Observable<ExploreList>
 
     @POST("comment/a")
     fun postComment(@Body params: Comment): Observable<Comment>

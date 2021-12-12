@@ -5,6 +5,7 @@ import com.example.kotlin_social_media_app.model.comment.CommentList
 import com.example.kotlin_social_media_app.model.explore.ExploreList
 import com.example.kotlin_social_media_app.model.product.ProductList
 import com.example.kotlin_social_media_app.model.reels.ReelsList
+import com.example.kotlin_social_media_app.model.user.User
 import com.example.kotlin_social_media_app.model.user.UserList
 import com.example.kotlin_social_media_app.model.user_auth.UserAuth
 import com.example.kotlin_social_media_app.model.user_following.UserFollowingList
@@ -55,4 +56,7 @@ interface RetrofitService {
 
     @POST("users/a/{email_user}")
     fun postUserOrUpdate(@Path("email_user") email_user: String): Observable<UserAuth>
+
+    @PUT("users/id/{id}")
+    fun updateUserProfile(@Path("id") id: String, @Body params: User): Observable<User>
 }

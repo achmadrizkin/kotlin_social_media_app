@@ -18,6 +18,7 @@ import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.view.auth.SignInActivity
+import com.example.kotlin_social_media_app.view.bottomNav.edit_profile_user.EditProfileActivity
 import com.example.kotlin_social_media_app.view.bottomNav.following.FollowingActivity
 import com.example.kotlin_social_media_app.view.bottomNav.user_post_details.UserPostActivity
 import com.example.kotlin_social_media_app.view_model.UserActivityViewModel
@@ -45,6 +46,15 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
     private lateinit var tvPostCount: TextView
     private lateinit var tvFollowersCount: TextView
     private lateinit var tvFollowingCount: TextView
+
+    private lateinit var name_user: String
+    private lateinit var image_url: String
+    private lateinit var email_user: String
+    private lateinit var following: String
+    private lateinit var followers: String
+    private lateinit var post: String
+    private lateinit var id: String
+
 
     var disposables: CompositeDisposable? = null
 
@@ -76,6 +86,7 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
         tvFollowingCount = view.findViewById(R.id.tvFollowingCount)
         ivEmpty = view.findViewById(R.id.ivEmpty)
         tvEmpty = view.findViewById(R.id.tvEmpty)
+        buttonEditProfile = view.findViewById(R.id.buttonEditProfile)
 
         initExploreRecyclerView(view)
         getUserByEmail(currentUser?.email!!)
@@ -92,6 +103,20 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
 
             //
             intent.putExtra("email", currentUser?.email!!)
+
+            startActivity(intent)
+        }
+
+        buttonEditProfile.setOnClickListener {
+            val intent = Intent(activity, EditProfileActivity::class.java)
+
+            intent.putExtra("image_url", image_url)
+            intent.putExtra("name_user", name_user)
+            intent.putExtra("email_user", email_user)
+            intent.putExtra("following", following)
+            intent.putExtra("followers", followers)
+            intent.putExtra("post", post)
+            intent.putExtra("id", id)
 
             startActivity(intent)
         }
@@ -123,6 +148,15 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
                     // image
                     Glide.with(ivImageUrl).load(it.data[0].image_url).circleCrop().into(ivImageUrl)
                     imguserUrl = it.data[0].image_url
+
+                    //
+                    image_url = it.data[0].image_url
+                    name_user = it.data[0].name_user
+                    id = it.data[0].id
+                    email_user = it.data[0].email_user
+                    following = it.data[0].following.toString()
+                    followers = it.data[0].followers.toString()
+                    post = it.data[0].post.toString()
                 }
 
                 //

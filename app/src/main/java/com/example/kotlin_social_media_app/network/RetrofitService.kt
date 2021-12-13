@@ -2,6 +2,7 @@ package com.example.kotlin_social_media_app.network
 
 import com.example.kotlin_social_media_app.model.comment.Comment
 import com.example.kotlin_social_media_app.model.comment.CommentList
+import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.model.explore.ExploreList
 import com.example.kotlin_social_media_app.model.product.ProductList
 import com.example.kotlin_social_media_app.model.reels.ReelsList
@@ -56,6 +57,9 @@ interface RetrofitService {
 
     @POST("users/a/{email_user}")
     fun postUserOrUpdate(@Path("email_user") email_user: String): Observable<UserAuth>
+
+    @POST("explore/a/post")
+    fun postExplore(@Body params: Explore): Observable<Explore>
 
     @PUT("users/id/{id}")
     fun updateUserProfile(@Path("id") id: String, @Body params: User): Observable<User>

@@ -69,7 +69,7 @@ class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>(
 
         fun bind(data: Explore) {
             tvInstagramName.text = data.name_user
-            tvLikePost.text = data.like_post + " Likes"
+            tvLikePost.text = data.like_post .toString() + " Likes"
             tvDescriptionPost.text = data.description_post
 
             Glide.with(ivProfilePicture).load(data.image_url).circleCrop().into(ivProfilePicture)

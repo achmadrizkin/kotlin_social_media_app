@@ -18,6 +18,7 @@ import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.view.auth.SignInActivity
+import com.example.kotlin_social_media_app.view.bottomNav.add_post.AddPostActivity
 import com.example.kotlin_social_media_app.view.bottomNav.edit_profile_user.EditProfileActivity
 import com.example.kotlin_social_media_app.view.bottomNav.following.FollowingActivity
 import com.example.kotlin_social_media_app.view.bottomNav.user_post_details.UserPostActivity
@@ -35,6 +36,7 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
     //
     private lateinit var ivImageUrl: ImageView
     private lateinit var ivEmpty: ImageView
+    private lateinit var ivAddPost: ImageView
 
     private lateinit var tvUserNameHeader: TextView
     private lateinit var tvUserName: TextView
@@ -89,6 +91,7 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
         ivEmpty = view.findViewById(R.id.ivEmpty)
         tvEmpty = view.findViewById(R.id.tvEmpty)
         buttonEditProfile = view.findViewById(R.id.buttonEditProfile)
+        ivAddPost = view.findViewById(R.id.ivAddPost)
 
         initExploreRecyclerView(view)
         getUserByEmail(currentUser?.email!!)
@@ -119,6 +122,16 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
             intent.putExtra("followers", followers)
             intent.putExtra("post", post)
             intent.putExtra("id", idUser)
+
+            startActivity(intent)
+        }
+
+        ivAddPost.setOnClickListener {
+            val intent = Intent(activity, AddPostActivity::class.java)
+
+            intent.putExtra("image_url", image_url)
+            intent.putExtra("name_user", name_user)
+            intent.putExtra("email_user", email_user)
 
             startActivity(intent)
         }

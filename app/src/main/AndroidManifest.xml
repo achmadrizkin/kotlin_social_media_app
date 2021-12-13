@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:usesCleartextTraffic">
         <activity
+            android:name=".view.bottomNav.add_post.AddPostActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.bottomNav.edit_profile_user.EditProfileActivity"
             android:exported="false" />
         <activity

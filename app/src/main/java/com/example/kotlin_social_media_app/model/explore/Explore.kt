@@ -8,8 +8,5 @@ data class Explore(
 
     val image_post: String,
     val description_post: String,
-    val like_post: String,
-
-    val create_at: String,
-    val update_at: String,
+    val like_post: Int
 )

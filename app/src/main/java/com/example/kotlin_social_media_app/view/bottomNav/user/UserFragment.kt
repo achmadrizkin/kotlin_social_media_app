@@ -2,13 +2,13 @@ package com.example.kotlin_social_media_app.view.bottomNav.user
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -47,13 +47,13 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
     private lateinit var tvFollowersCount: TextView
     private lateinit var tvFollowingCount: TextView
 
-    private lateinit var name_user: String
-    private lateinit var image_url: String
-    private lateinit var email_user: String
-    private lateinit var following: String
-    private lateinit var followers: String
-    private lateinit var post: String
-    private lateinit var id: String
+    var name_user: String = "Anonymous"
+    var image_url: String = "null"
+    var email_user: String = "null"
+    var following: String = "0"
+    var followers: String = "0"
+    var post: String = "0"
+    private lateinit var idUser: String
 
 
     var disposables: CompositeDisposable? = null
@@ -77,6 +77,8 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
 
         mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
+
+        email_user = currentUser?.email!!
 
         ivImageUrl = view.findViewById(R.id.ivImageUrl)
         tvUserNameHeader = view.findViewById(R.id.tvUserNameHeader)
@@ -116,7 +118,7 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
             intent.putExtra("following", following)
             intent.putExtra("followers", followers)
             intent.putExtra("post", post)
-            intent.putExtra("id", id)
+            intent.putExtra("id", idUser)
 
             startActivity(intent)
         }
@@ -138,26 +140,24 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
         val viewModel = ViewModelProvider(this).get(UserActivityViewModel::class.java)
         viewModel.getUserByEmailObservable().observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                if (it.data[0].name_user.isEmpty() || it.data[0].name_user == "" || it.data[0].image_url.isEmpty() || it.data[0].image_url == "") {
-                    tvUserName.setText("Anonymous")
-                    tvUserNameHeader.setText("Anonymous")
-                } else {
-                    tvUserName.setText(it.data[0].name_user)
-                    tvUserNameHeader.setText(it.data[0].name_user)
+                tvUserName.setText(it.data[0].name_user)
+                tvUserNameHeader.setText(it.data[0].name_user)
 
-                    // image
+                // image
+                if (it.data[0].image_url.isNotEmpty()) {
                     Glide.with(ivImageUrl).load(it.data[0].image_url).circleCrop().into(ivImageUrl)
-                    imguserUrl = it.data[0].image_url
-
-                    //
-                    image_url = it.data[0].image_url
-                    name_user = it.data[0].name_user
-                    id = it.data[0].id
-                    email_user = it.data[0].email_user
-                    following = it.data[0].following.toString()
-                    followers = it.data[0].followers.toString()
-                    post = it.data[0].post.toString()
                 }
+                imguserUrl = it.data[0].image_url
+
+                //
+                image_url = it.data[0].image_url
+                name_user = it.data[0].name_user
+                email_user = it.data[0].email_user
+                following = it.data[0].following.toString()
+                followers = it.data[0].followers.toString()
+                idUser = it.data[0].id.toString()
+                post = it.data[0].post.toString()
+
 
                 //
                 tvPostCount.setText(it.data[0].post.toString())
@@ -199,11 +199,7 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
     override fun onItemClickListenerExplore(explore: Explore, position: Int) {
         val i = Intent(activity, UserPostActivity::class.java)
 
-        i.putExtra("image_url", explore.image_url)
-        i.putExtra("name_user", explore.name_user)
-        i.putExtra("image_post", explore.image_post)
-        i.putExtra("like_post", explore.like_post)
-        i.putExtra("description_post", explore.description_post)
+        i.putExtra("position", position.toString())
 
         startActivity(i)
     }

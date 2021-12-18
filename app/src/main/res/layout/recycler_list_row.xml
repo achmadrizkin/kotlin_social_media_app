@@ -32,14 +32,5 @@
             android:layout_marginStart="10dp"
             android:textSize="16sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:maxLines="3"
-            android:textColor="#d5d5d5"
-            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.kotlin_social_media_app.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.model.comment.Comment
+import com.example.kotlin_social_media_app.view.bottomNav.user_details_explore.UserDetailsExploreActivity
 
 class CommentAdapter: RecyclerView.Adapter<CommentAdapter.MyViewHolder>() {
     private var commentList = ArrayList<Comment>()
@@ -25,6 +27,13 @@ class CommentAdapter: RecyclerView.Adapter<CommentAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: CommentAdapter.MyViewHolder, position: Int) {
         holder.bind(commentList[position])
+        holder.ivPicture.setOnClickListener {
+            val i = Intent(it.context, UserDetailsExploreActivity::class.java)
+
+            i.putExtra("email1", commentList[position].email_user)
+
+            it.context.startActivity(i)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -11,15 +11,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.model.explore.Explore
+import com.example.kotlin_social_media_app.model.like.Like
+import com.example.kotlin_social_media_app.model.like.LikeList
 import com.example.kotlin_social_media_app.view.bottomNav.comment.CommentActivity
 import com.example.kotlin_social_media_app.view.bottomNav.user_details_explore.UserDetailsExploreActivity
 import com.midtrans.sdk.uikit.activities.UserDetailsActivity
 
-class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>() {
+class PostDetailsAdapter(val clickListener: OnItemClickListener): RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>() {
     private var exploreList = ArrayList<Explore>()
+    private var likeList = ArrayList<Like>()
 
     fun setExploreList(exploreList: ArrayList<Explore>) {
         this.exploreList = exploreList
+    }
+
+    fun setLikeList(likeList: ArrayList<Like>) {
+            this.likeList = likeList
     }
 
     override fun onCreateViewHolder(
@@ -44,6 +51,7 @@ class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>(
 
             it.context.startActivity(i)
         }
+
         holder.ivProfilePicture.setOnClickListener {
             val i = Intent(it.context, UserDetailsExploreActivity::class.java)
 
@@ -51,6 +59,12 @@ class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>(
 
             it.context.startActivity(i)
         }
+
+        holder.ivLike.setOnClickListener {
+            clickListener.updateLike(exploreList[position], holder, position)
+        }
+
+        //
     }
 
     override fun getItemCount(): Int {
@@ -62,10 +76,10 @@ class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>(
         val tvLikePost = view.findViewById<TextView>(R.id.tvLikePost)
         val tvDescriptionPost = view.findViewById<TextView>(R.id.tvDescriptionPost)
 
-
         val ivProfilePicture = view.findViewById<ImageView>(R.id.ivProfilePicture)
         val ivPicturePost = view.findViewById<ImageView>(R.id.ivPicturePost)
         val ivComment = view.findViewById<ImageView>(R.id.ivComment)
+        val ivLike = view.findViewById<ImageView>(R.id.ivLike)
 
         fun bind(data: Explore) {
             tvInstagramName.text = data.name_user
@@ -77,4 +91,7 @@ class PostDetailsAdapter: RecyclerView.Adapter<PostDetailsAdapter.MyViewHolder>(
         }
     }
 
+    interface OnItemClickListener {
+        fun updateLike(explore: Explore, holder: MyViewHolder, position: Int)
+    }
 }

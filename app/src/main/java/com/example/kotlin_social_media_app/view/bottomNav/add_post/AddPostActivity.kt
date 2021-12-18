@@ -37,17 +37,6 @@ class AddPostActivity : AppCompatActivity() {
         iniViewModel()
         postExploreObservable()
 
-        if (image_url == "" || image_url!!.isEmpty() || name_user == "" || name_user!!.isEmpty() || image_url.length < 10) {
-            btnPost.visibility = View.GONE
-            tvNone.visibility = View.VISIBLE
-        } else if(etDescription.text.length < 2 || etImagePost.text.length < 2) {
-            btnPost.visibility = View.GONE
-        }
-        else {
-            btnPost.visibility = View.VISIBLE
-            tvNone.visibility = View.GONE
-        }
-
         btnPost.setOnClickListener {
             val explore = Explore("", name_user!!, email_user!!, image_url!!, etImagePost.text.toString(), etDescription.text.toString(), 0)
             postExplore(explore)

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.PostDetailsAdapter
+import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.view_model.HomeActivityViewModel
 import com.example.kotlin_social_media_app.view_model.PostDetailsActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), PostDetailsAdapter.OnItemClickListener {
     lateinit var postDetailsAdapter: PostDetailsAdapter
     lateinit var recyclerViewHome: RecyclerView
     private lateinit var mAuth: FirebaseAuth
@@ -81,7 +82,7 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
 
             //
-            postDetailsAdapter = PostDetailsAdapter()
+            postDetailsAdapter = PostDetailsAdapter(this@HomeFragment)
             adapter = postDetailsAdapter
         }
     }
@@ -94,5 +95,14 @@ class HomeFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = HomeFragment()
+    }
+
+
+    override fun updateLike(
+        explore: Explore,
+        holder: PostDetailsAdapter.MyViewHolder,
+        position: Int
+    ) {
+        TODO("Not yet implemented")
     }
 }

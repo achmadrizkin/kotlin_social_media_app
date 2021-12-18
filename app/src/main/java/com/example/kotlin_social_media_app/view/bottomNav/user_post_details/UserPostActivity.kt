@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.PostDetailsAdapter
+import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.view_model.PostDetailsActivityViewModel
 import com.example.kotlin_social_media_app.view_model.UserActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class UserPostActivity : AppCompatActivity() {
+class UserPostActivity : AppCompatActivity(), PostDetailsAdapter.OnItemClickListener {
     lateinit var postDetailsAdapter: PostDetailsAdapter
     lateinit var recyclerViewUserPostDetails: RecyclerView
     private lateinit var mAuth: FirebaseAuth
@@ -32,10 +33,8 @@ class UserPostActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_post)
         disposables = CompositeDisposable()
 
-
         //
-        mAuth = FirebaseAuth.getInstance()
-        val currentUser = mAuth.currentUser
+        val email_user = intent.getStringExtra("email")
 
         //
         recyclerViewUserPostDetails = findViewById(R.id.recyclerViewUserPostDetails)
@@ -59,7 +58,7 @@ class UserPostActivity : AppCompatActivity() {
 
 
         initSearchRecyclerView()
-        getExploreApiData(currentUser?.email!!)
+        getExploreApiData(email_user!!)
     }
 
     private fun initSearchRecyclerView() {
@@ -68,7 +67,7 @@ class UserPostActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@UserPostActivity)
 
             //
-            postDetailsAdapter = PostDetailsAdapter()
+            postDetailsAdapter = PostDetailsAdapter(this@UserPostActivity)
             adapter = postDetailsAdapter
         }
     }
@@ -87,5 +86,13 @@ class UserPostActivity : AppCompatActivity() {
     override fun onDestroy() {
         disposables!!.clear()
         super.onDestroy()
+    }
+
+    override fun updateLike(
+        explore: Explore,
+        holder: PostDetailsAdapter.MyViewHolder,
+        position: Int
+    ) {
+
     }
 }

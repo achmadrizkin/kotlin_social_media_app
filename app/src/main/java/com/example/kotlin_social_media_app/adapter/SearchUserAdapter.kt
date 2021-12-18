@@ -40,13 +40,11 @@ class SearchUserAdapter(val clickListener: OnItemClickListener): RecyclerView.Ad
     class MyViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
         val tvPublisher = view.findViewById<TextView>(R.id.tvPublisher)
-        val tvDescription = view.findViewById<TextView>(R.id.tvDescription)
         val thumbImageView = view.findViewById<ImageView>(R.id.thumbImageView)
 
         fun bind(data: User) {
             tvTitle.text = data.name_user
             tvPublisher.text = "Rp. " + data.email_user
-            tvDescription.text = data.following.toString()
 
             val url = data.image_url
             Glide.with(thumbImageView).load(url).circleCrop().into(thumbImageView)

@@ -4,6 +4,8 @@ import com.example.kotlin_social_media_app.model.comment.Comment
 import com.example.kotlin_social_media_app.model.comment.CommentList
 import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.model.explore.ExploreList
+import com.example.kotlin_social_media_app.model.like.Like
+import com.example.kotlin_social_media_app.model.like.LikeList
 import com.example.kotlin_social_media_app.model.product.ProductList
 import com.example.kotlin_social_media_app.model.reels.ReelsList
 import com.example.kotlin_social_media_app.model.user.User
@@ -52,6 +54,9 @@ interface RetrofitService {
     @GET("explore/home/{email_user}")
     fun getFollowingByEmailUser(@Path("email_user") email_user: String): Observable<ExploreList>
 
+    @GET("post/like/{id}/{email_user}")
+    fun getLikeUser(@Path("id") id: String, @Path("email_user") email_user: String): Observable<LikeList>
+
     @POST("comment/a")
     fun postComment(@Body params: Comment): Observable<Comment>
 
@@ -60,6 +65,9 @@ interface RetrofitService {
 
     @POST("explore/a/post")
     fun postExplore(@Body params: Explore): Observable<Explore>
+
+    @POST("post/like")
+    fun postLikeToUserPost(@Body params: Like): Observable<Like>
 
     @PUT("users/id/{id}")
     fun updateUserProfile(@Path("id") id: String, @Body params: User): Observable<User>

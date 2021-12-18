@@ -94,6 +94,7 @@ class CommentActivity : AppCompatActivity() {
 
             //
             getCommentApiData(description_post!!, id!!)
+            initCommentRecyclerView()
         }
     }
 

@@ -213,6 +213,7 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
         val i = Intent(activity, UserPostActivity::class.java)
 
         i.putExtra("position", position.toString())
+        i.putExtra("email", email_user)
 
         startActivity(i)
     }

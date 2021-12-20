@@ -25,6 +25,9 @@ class FollowingActivity : AppCompatActivity() {
     private lateinit var followingAdapter: FollowingAdapter
     private lateinit var ivBack: ImageView
 
+    private lateinit var ivNoFollowing: ImageView
+    private lateinit var tvNoFollowing: TextView
+
     var disposables: CompositeDisposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +39,11 @@ class FollowingActivity : AppCompatActivity() {
 
         //
         val email = intent.getStringExtra("email")
+
+        //
+        ivNoFollowing = findViewById(R.id.ivNoFollowing)
+        tvNoFollowing = findViewById(R.id.tvNoFollowing)
+
 
         //
         recyclerViewFollowing = findViewById(R.id.recyclerViewFollowing)
@@ -68,6 +76,12 @@ class FollowingActivity : AppCompatActivity() {
             if (it != null) {
                 followingAdapter.setFollowingList(it.data)
                 followingAdapter.notifyDataSetChanged()
+
+                ivNoFollowing.visibility = View.GONE
+                tvNoFollowing.visibility = View.GONE
+            } else {
+                ivNoFollowing.visibility = View.VISIBLE
+                tvNoFollowing.visibility = View.VISIBLE
             }
         })
         viewModel.getFollowingByUserOfData(input)

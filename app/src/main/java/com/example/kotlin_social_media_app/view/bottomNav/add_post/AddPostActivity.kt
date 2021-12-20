@@ -28,6 +28,7 @@ class AddPostActivity : AppCompatActivity() {
         val name_user = intent.getStringExtra("name_user")
         val image_url = intent.getStringExtra("image_url")
         val email_user = intent.getStringExtra("email_user")
+        val post = intent.getStringExtra("post")
 
         val btnPost = findViewById<Button>(R.id.btnPost)
         val etDescription = findViewById<EditText>(R.id.etDescription)
@@ -39,6 +40,11 @@ class AddPostActivity : AppCompatActivity() {
 
         btnPost.setOnClickListener {
             val explore = Explore("", name_user!!, email_user!!, image_url!!, etImagePost.text.toString(), etDescription.text.toString(), 0)
+
+            //
+            val id: Int = post!!.toInt() + 1
+
+            updateUserPost(email_user, id)
             postExplore(explore)
         }
     }
@@ -68,5 +74,9 @@ class AddPostActivity : AppCompatActivity() {
 
     private fun postExplore(explore: Explore) {
         viewModel.postExploreOfData(explore)
+    }
+
+    private fun updateUserPost(email: String, id: Int) {
+        viewModel.updateUserPostOfData(email, id)
     }
 }

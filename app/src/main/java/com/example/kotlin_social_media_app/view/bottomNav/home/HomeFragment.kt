@@ -105,4 +105,12 @@ class HomeFragment : Fragment(), PostDetailsAdapter.OnItemClickListener {
     ) {
         TODO("Not yet implemented")
     }
+
+    override fun getComment(
+        explore: Explore,
+        holder: PostDetailsAdapter.MyViewHolder,
+        position: Int
+    ) {
+        TODO("Not yet implemented")
+    }
 }

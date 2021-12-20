@@ -92,9 +92,9 @@ class CommentActivity : AppCompatActivity() {
             //
             etPostComment.setText("")
 
-            //
-            getCommentApiData(description_post!!, id!!)
+            //            -- Dont USE THIS, IDK WHY BUT HAVE BUG (bug if u use keyboard, not reload screen)
             initCommentRecyclerView()
+            getCommentApiData(description_post!!, id!!)
         }
     }
 

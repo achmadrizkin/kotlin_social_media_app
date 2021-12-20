@@ -44,7 +44,7 @@ class SearchUserAdapter(val clickListener: OnItemClickListener): RecyclerView.Ad
 
         fun bind(data: User) {
             tvTitle.text = data.name_user
-            tvPublisher.text = "Rp. " + data.email_user
+            tvPublisher.text = data.email_user
 
             val url = data.image_url
             Glide.with(thumbImageView).load(url).circleCrop().into(thumbImageView)

@@ -1,5 +1,6 @@
 package com.example.kotlin_social_media_app.view.bottomNav.user_post_details
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.PostDetailsAdapter
 import com.example.kotlin_social_media_app.model.explore.Explore
+import com.example.kotlin_social_media_app.view.bottomNav.comment.CommentActivity
 import com.example.kotlin_social_media_app.view_model.PostDetailsActivityViewModel
 import com.example.kotlin_social_media_app.view_model.UserActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -95,4 +97,21 @@ class UserPostActivity : AppCompatActivity(), PostDetailsAdapter.OnItemClickList
     ) {
 
     }
+
+    override fun getComment(
+        exploreList: Explore,
+        holder: PostDetailsAdapter.MyViewHolder,
+        position: Int
+    ) {
+        val i = Intent(this, CommentActivity::class.java)
+
+        i.putExtra("description_post", exploreList.description_post)
+        i.putExtra("id", exploreList.id)
+        i.putExtra("to_email", exploreList.email_user)
+        i.putExtra("image_url", exploreList.image_url)
+        i.putExtra("name", exploreList.name_user)
+
+        startActivity(i)
+    }
+
 }

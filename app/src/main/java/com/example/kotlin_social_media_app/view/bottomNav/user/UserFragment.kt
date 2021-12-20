@@ -132,6 +132,7 @@ class UserFragment : Fragment(), ExploreAdapter.OnItemClickListener {
             intent.putExtra("image_url", image_url)
             intent.putExtra("name_user", name_user)
             intent.putExtra("email_user", email_user)
+            intent.putExtra("post", post)
 
             startActivity(intent)
         }

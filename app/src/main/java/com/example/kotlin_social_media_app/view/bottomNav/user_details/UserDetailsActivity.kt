@@ -3,10 +3,12 @@ package com.example.kotlin_social_media_app.view.bottomNav.user_details
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,8 +17,10 @@ import com.bumptech.glide.Glide
 import com.example.kotlin_social_media_app.R
 import com.example.kotlin_social_media_app.adapter.ExploreAdapter
 import com.example.kotlin_social_media_app.model.explore.Explore
+import com.example.kotlin_social_media_app.model.user_following.UserFollowing
 import com.example.kotlin_social_media_app.view.bottomNav.BottomNavActivity
 import com.example.kotlin_social_media_app.view.bottomNav.user_post_details.UserPostActivity
+import com.example.kotlin_social_media_app.view_model.AddPostActivityViewModel
 import com.example.kotlin_social_media_app.view_model.UserActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +31,8 @@ class UserDetailsActivity : AppCompatActivity(),  ExploreAdapter.OnItemClickList
     lateinit var exploreAdapter: ExploreAdapter
     lateinit var recyclerViewUserDetailsLayout : RecyclerView
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var viewModel: UserActivityViewModel
+
 
     //
     private lateinit var ivImageUrl: ImageView
@@ -46,6 +52,13 @@ class UserDetailsActivity : AppCompatActivity(),  ExploreAdapter.OnItemClickList
     private lateinit var buttonEditProfile: Button
 
     var email_user: String = "null"
+    private lateinit var id: String
+    private lateinit var idUserDetails: String
+
+    //
+    private lateinit var name_user: String
+    private lateinit var email_user_: String
+    private lateinit var image_url: String
 
     var disposables: CompositeDisposable? = null
 
@@ -94,9 +107,27 @@ class UserDetailsActivity : AppCompatActivity(),  ExploreAdapter.OnItemClickList
 
         //
         initExploreRecyclerView()
+        postUserFollowingObservable()
+
         if (email != null) {
+            getUserByEmail2(currentUser?.email!!)
             getUserByEmail(email)
             getExploreByEmailApiData(email)
+        }
+
+        buttonFollow.setOnClickListener {
+            //TODO: DO POST RIGHT HERE
+            var userFollowing = UserFollowing("", currentUser?.email!!, name_user, email_user_, image_url)
+
+            //
+            val uFollowing = id.toInt() + 1
+            val userFollowers = idUserDetails.toInt() + 1
+
+
+            //
+            updateUserFollowing(currentUser?.email!!, uFollowing)
+            postExplore(userFollowing)
+            updateUserFollowers(email!!, userFollowers)
         }
     }
 
@@ -124,7 +155,10 @@ class UserDetailsActivity : AppCompatActivity(),  ExploreAdapter.OnItemClickList
 
                 //
                 email_user = it.data[0].email_user
-
+                name_user = it.data[0].name_user
+                email_user_ = it.data[0].email_user
+                image_url = it.data[0].image_url
+                idUserDetails = it.data[0].followers.toString()
 
                 //
                 tvPostCount.setText(it.data[0].post.toString())
@@ -135,6 +169,18 @@ class UserDetailsActivity : AppCompatActivity(),  ExploreAdapter.OnItemClickList
             }
         })
         viewModel.getUserListByEmailOfData(email)
+    }
+
+    private fun getUserByEmail2(email: String) {
+        val viewModel = ViewModelProvider(this).get(UserActivityViewModel::class.java)
+        viewModel.getUserByEmail2Observable().observe(this, Observer {
+            if (it != null) {
+                id = it.data[0].following.toString()
+            } else {
+
+            }
+        })
+        viewModel.getUserListByEmail2OfData(email)
     }
 
     private fun getExploreByEmailApiData(input: String) {
@@ -168,5 +214,38 @@ class UserDetailsActivity : AppCompatActivity(),  ExploreAdapter.OnItemClickList
         i.putExtra("email", email_user)
 
         startActivity(i)
+    }
+
+    //
+    private fun postUserFollowingObservable() {
+        viewModel = ViewModelProvider(this).get(UserActivityViewModel::class.java)
+        viewModel.postUserFollowingObservable().observe(this, Observer {
+            if (it == null) {
+                Toast.makeText(
+                    this,
+                    "Failed to follow user",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Success to follow user",
+                    Toast.LENGTH_LONG
+                ).show()
+                finish()
+            }
+        })
+    }
+
+    private fun postExplore(userFollowing: UserFollowing) {
+        viewModel.postUserFollowingOfData(userFollowing)
+    }
+
+    private fun updateUserFollowing(email: String, id: Int) {
+        viewModel.updateUserFollowingOfData(email, id)
+    }
+
+    private fun updateUserFollowers(email: String, id: Int) {
+        viewModel.updateUserFollowersOfData(email, id)
     }
 }

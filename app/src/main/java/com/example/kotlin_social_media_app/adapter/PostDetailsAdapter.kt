@@ -41,15 +41,7 @@ class PostDetailsAdapter(val clickListener: OnItemClickListener): RecyclerView.A
     override fun onBindViewHolder(holder: PostDetailsAdapter.MyViewHolder, position: Int) {
         holder.bind(exploreList[position])
         holder.ivComment.setOnClickListener {
-            val i = Intent(it.context, CommentActivity::class.java)
-
-            i.putExtra("description_post", exploreList[position].description_post)
-            i.putExtra("id", exploreList[position].id)
-            i.putExtra("to_email", exploreList[position].email_user)
-            i.putExtra("image_url", exploreList[position].image_url)
-            i.putExtra("name", exploreList[position].name_user)
-
-            it.context.startActivity(i)
+            clickListener.getComment(exploreList[position], holder, position)
         }
 
         holder.ivProfilePicture.setOnClickListener {
@@ -93,5 +85,6 @@ class PostDetailsAdapter(val clickListener: OnItemClickListener): RecyclerView.A
 
     interface OnItemClickListener {
         fun updateLike(explore: Explore, holder: MyViewHolder, position: Int)
+        fun getComment(explore: Explore, holder: MyViewHolder, position: Int)
     }
 }

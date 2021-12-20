@@ -10,7 +10,9 @@ import com.example.kotlin_social_media_app.model.product.ProductList
 import com.example.kotlin_social_media_app.model.reels.ReelsList
 import com.example.kotlin_social_media_app.model.user.User
 import com.example.kotlin_social_media_app.model.user.UserList
+import com.example.kotlin_social_media_app.model.user_auth.UpdateUserPost
 import com.example.kotlin_social_media_app.model.user_auth.UserAuth
+import com.example.kotlin_social_media_app.model.user_following.UserFollowing
 import com.example.kotlin_social_media_app.model.user_following.UserFollowingList
 import io.reactivex.Observable
 import retrofit2.Call
@@ -63,11 +65,23 @@ interface RetrofitService {
     @POST("users/a/{email_user}")
     fun postUserOrUpdate(@Path("email_user") email_user: String): Observable<UserAuth>
 
+    @POST("users/a/{email_user}/{id}")
+    fun updateUserPost(@Path("email_user") email_user: String, @Path("id") id: Int): Observable<UpdateUserPost>
+
+    @POST("users/following/{email_user}/{id}")
+    fun updateUserFollowing(@Path("email_user") email_user: String, @Path("id") id: Int): Observable<UpdateUserPost>
+
+    @POST("users/followers/{email_user}/{id}")
+    fun updateUserFollowers(@Path("email_user") email_user: String, @Path("id") id: Int): Observable<UpdateUserPost>
+
     @POST("explore/a/post")
     fun postExplore(@Body params: Explore): Observable<Explore>
 
     @POST("post/like")
     fun postLikeToUserPost(@Body params: Like): Observable<Like>
+
+    @POST("user/followers")
+    fun postUserFollowers(@Body params: UserFollowing): Observable<UserFollowing>
 
     @PUT("users/id/{id}")
     fun updateUserProfile(@Path("id") id: String, @Body params: User): Observable<User>

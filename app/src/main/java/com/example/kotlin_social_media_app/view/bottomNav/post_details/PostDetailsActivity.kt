@@ -16,6 +16,7 @@ import com.example.kotlin_social_media_app.adapter.PostDetailsAdapter
 import com.example.kotlin_social_media_app.model.explore.Explore
 import com.example.kotlin_social_media_app.model.like.Like
 import com.example.kotlin_social_media_app.view.bottomNav.BottomNavActivity
+import com.example.kotlin_social_media_app.view.bottomNav.comment.CommentActivity
 import com.example.kotlin_social_media_app.view_model.PostDetailsActivityViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -170,5 +171,21 @@ class PostDetailsActivity : AppCompatActivity(), PostDetailsAdapter.OnItemClickL
             isLike++
         }
 
+    }
+
+    override fun getComment(
+        exploreList: Explore,
+        holder: PostDetailsAdapter.MyViewHolder,
+        position: Int
+    ) {
+        val i = Intent(this, CommentActivity::class.java)
+
+        i.putExtra("description_post", exploreList.description_post)
+        i.putExtra("id", exploreList.id)
+        i.putExtra("to_email", exploreList.email_user)
+        i.putExtra("image_url", exploreList.image_url)
+        i.putExtra("name", exploreList.name_user)
+
+        startActivity(i)
     }
 }

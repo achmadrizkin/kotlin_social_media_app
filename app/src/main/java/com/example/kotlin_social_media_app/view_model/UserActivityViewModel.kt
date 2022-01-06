@@ -18,6 +18,7 @@ class UserActivityViewModel @Inject constructor(private val repository: UserRepo
     var updateUserFollowing: MutableLiveData<UpdateUserPost>
     var updateUserFollowers: MutableLiveData<UpdateUserPost>
     val userEmailList2: MutableLiveData<UserList>
+    val postUserFollowing: MutableLiveData<UserFollowing>
 
     init {
         userExploreList = MutableLiveData()
@@ -25,6 +26,7 @@ class UserActivityViewModel @Inject constructor(private val repository: UserRepo
         updateUserFollowing = MutableLiveData()
         userEmailList2 = MutableLiveData()
         updateUserFollowers = MutableLiveData()
+        postUserFollowing = MutableLiveData()
     }
 
     fun getExploreObservable(): MutableLiveData<ExploreList> {
@@ -37,6 +39,10 @@ class UserActivityViewModel @Inject constructor(private val repository: UserRepo
 
     fun getUserByEmail2Observable(): MutableLiveData<UserList> {
         return userEmailList2
+    }
+
+    fun postUserFollowingObservable(): MutableLiveData<UserFollowing> {
+        return postUserFollowing
     }
 
     fun getExploreListOfData(email: String) {
@@ -57,5 +63,9 @@ class UserActivityViewModel @Inject constructor(private val repository: UserRepo
 
     fun updateUserFollowersOfData(email: String, id: Int) {
         repository.updateUserFollowersFromApiCall(email, id, updateUserFollowing)
+    }
+
+    fun postUserFollowingOfData(userFollowing: UserFollowing) {
+        repository.postUserFollowingFromApiCall(userFollowing, postUserFollowing)
     }
 }

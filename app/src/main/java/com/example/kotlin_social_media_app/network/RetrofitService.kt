@@ -80,7 +80,7 @@ interface RetrofitService {
     @POST("post/like")
     fun postLikeToUserPost(@Body params: Like): Observable<Like>
 
-    @POST("user/followers")
+    @POST("user/a/followers")
     fun postUserFollowers(@Body params: UserFollowing): Observable<UserFollowing>
 
     @PUT("users/id/{id}")

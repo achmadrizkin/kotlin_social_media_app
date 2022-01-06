@@ -107,7 +107,6 @@ class UserDetailsActivity : AppCompatActivity(),  ExploreAdapter.OnItemClickList
 
         //
         initExploreRecyclerView()
-        postUserFollowingObservable()
 
         if (email != null) {
             getUserByEmail2(currentUser?.email!!)
@@ -126,8 +125,8 @@ class UserDetailsActivity : AppCompatActivity(),  ExploreAdapter.OnItemClickList
 
             //
             updateUserFollowing(currentUser?.email!!, uFollowing)
-            postExplore(userFollowing)
             updateUserFollowers(email!!, userFollowers)
+            postUserFollowing(userFollowing)
         }
     }
 
@@ -216,36 +215,18 @@ class UserDetailsActivity : AppCompatActivity(),  ExploreAdapter.OnItemClickList
         startActivity(i)
     }
 
-    //
-    private fun postUserFollowingObservable() {
-        viewModel = ViewModelProvider(this).get(UserActivityViewModel::class.java)
-        viewModel.postUserFollowingObservable().observe(this, Observer {
-            if (it == null) {
-                Toast.makeText(
-                    this,
-                    "Failed to follow user",
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Success to follow user",
-                    Toast.LENGTH_LONG
-                ).show()
-                finish()
-            }
-        })
-    }
-
-    private fun postExplore(userFollowing: UserFollowing) {
+    private fun postUserFollowing(userFollowing: UserFollowing) {
+        val viewModel = ViewModelProvider(this).get(UserActivityViewModel::class.java)
         viewModel.postUserFollowingOfData(userFollowing)
     }
 
     private fun updateUserFollowing(email: String, id: Int) {
+        val viewModel = ViewModelProvider(this).get(UserActivityViewModel::class.java)
         viewModel.updateUserFollowingOfData(email, id)
     }
 
     private fun updateUserFollowers(email: String, id: Int) {
+        val viewModel = ViewModelProvider(this).get(UserActivityViewModel::class.java)
         viewModel.updateUserFollowersOfData(email, id)
     }
 }

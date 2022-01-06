@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.kotlin_social_media_app.model.explore.ExploreList
 import com.example.kotlin_social_media_app.model.user.UserList
 import com.example.kotlin_social_media_app.model.user_auth.UpdateUserPost
+import com.example.kotlin_social_media_app.model.user_following.UserFollowing
 import com.example.kotlin_social_media_app.network.RetrofitService
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,6 +25,13 @@ class UserRepository @Inject constructor(private val retrofitService: RetrofitSe
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(getUserByEmailObserverRx(userList))
+    }
+
+    fun postUserFollowingFromApiCall(userFollowing: UserFollowing, userList: MutableLiveData<UserFollowing>) {
+        retrofitService.postUserFollowers(userFollowing)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(postUserFollowingObserverRx(userList))
     }
 
     fun updateUserFollowingFromApiCall(email: String, id: Int, userList: MutableLiveData<UpdateUserPost>) {
@@ -107,6 +115,26 @@ class UserRepository @Inject constructor(private val retrofitService: RetrofitSe
             }
 
             override fun onNext(t: UpdateUserPost) {
+                userList.postValue(t)
+            }
+
+            override fun onError(e: Throwable) {
+                userList.postValue(null)
+            }
+
+            override fun onComplete() {
+                // end progress indicator
+            }
+        }
+    }
+
+    private fun postUserFollowingObserverRx(userList: MutableLiveData<UserFollowing>): Observer<UserFollowing> {
+        return object : Observer<UserFollowing> {
+            override fun onSubscribe(d: Disposable) {
+                // start progress indicator
+            }
+
+            override fun onNext(t: UserFollowing) {
                 userList.postValue(t)
             }
 
